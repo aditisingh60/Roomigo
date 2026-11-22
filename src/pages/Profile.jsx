@@ -29,33 +29,33 @@ const Profile = () => {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 space-y-8">
       {/* Profile Header Card */}
-      <div className="bg-white p-7 sm:p-10 rounded-3xl border border-slate-200/80 shadow-xl space-y-6">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 pb-8 border-b border-slate-100">
+      <div className="bg-[#FAF6EE] p-7 sm:p-10 rounded-[32px] border border-[#556852]/20 shadow-lg space-y-6">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 pb-8 border-b border-[#556852]/10">
           <div className="flex items-center gap-5">
             <div className="relative">
               <img
                 src={profilePic}
                 alt={currentUser?.name}
-                className="w-24 h-24 rounded-3xl object-cover border-2 border-white ring-4 ring-[#F0ECFF] shadow-md"
+                className="w-24 h-24 rounded-3xl object-cover border-2 border-[#FAF6EE] ring-4 ring-[#EBF1EA] shadow-md"
               />
-              <span className="absolute -bottom-1 -right-1 w-5 h-5 bg-emerald-500 rounded-full border-2 border-white" />
+              <span className="absolute -bottom-1 -right-1 w-5 h-5 bg-[#556852] rounded-full border-2 border-[#FAF6EE]" />
             </div>
 
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="text-2xl sm:text-3xl font-extrabold text-[#252333]">
+                <h1 className="font-serif text-2xl sm:text-3xl font-normal text-[#232B20]">
                   {currentUser?.name || profile.name}
                 </h1>
-                <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#F0ECFF] text-[#7056D8]">
+                <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#EBF1EA] text-[#374435]">
                   {profile.age} yrs
                 </span>
               </div>
 
-              <div className="flex items-center gap-2 text-xs font-medium text-[#7056D8] mt-1">
+              <div className="flex items-center gap-2 text-xs font-medium text-[#556852] mt-1">
                 {profile.occupationType === 'College student' ? (
-                  <GraduationCap className="w-3.5 h-3.5 text-[#FF8BA7]" />
+                  <GraduationCap className="w-3.5 h-3.5 text-[#C59B27]" />
                 ) : (
-                  <Briefcase className="w-3.5 h-3.5 text-[#FF8BA7]" />
+                  <Briefcase className="w-3.5 h-3.5 text-[#C59B27]" />
                 )}
                 <span>
                   {profile.occupation || profile.occupationType}
@@ -63,12 +63,12 @@ const Profile = () => {
                 </span>
               </div>
 
-              <div className="flex flex-wrap items-center gap-3 mt-2 text-xs text-[#656377]">
+              <div className="flex flex-wrap items-center gap-3 mt-2 text-xs text-[#616E5E]">
                 <span className="flex items-center gap-1">
-                  <MapPin className="w-3.5 h-3.5 text-[#7056D8]" />
+                  <MapPin className="w-3.5 h-3.5 text-[#556852]" />
                   {profile.preferredLocality || profile.preferredCity || 'Koramangala, Bengaluru'}
                 </span>
-                <span className="flex items-center gap-1 font-bold text-[#252333]">
+                <span className="flex items-center gap-1 font-bold text-[#232B20]">
                   ₹{minB} – ₹{maxB} / mo
                 </span>
               </div>
@@ -76,7 +76,7 @@ const Profile = () => {
           </div>
 
           <Link to="/onboarding">
-            <Button variant="outline" size="sm" icon={Settings}>
+            <Button variant="sand" size="sm" icon={Settings} className="border border-[#556852]/25 text-xs uppercase tracking-wider">
               Edit Profile
             </Button>
           </Link>

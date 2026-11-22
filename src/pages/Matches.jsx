@@ -26,37 +26,37 @@ const Matches = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-200/60 pb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-[#556852]/15 pb-6">
         <div className="flex items-center gap-3.5">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#7056D8] to-[#FF8BA7] text-white flex items-center justify-center shadow-md shadow-[#7056D8]/20">
-            <Heart className="w-6 h-6 fill-white" />
+          <div className="w-12 h-12 rounded-2xl bg-[#556852] text-[#FAF6EE] flex items-center justify-center shadow-md">
+            <Heart className="w-6 h-6 fill-[#FAF6EE]" />
           </div>
           <div>
-            <h1 className="text-3xl font-extrabold text-[#252333]">Your Connections</h1>
-            <p className="text-sm text-[#656377]">
+            <h1 className="font-serif text-3xl font-normal text-[#232B20]">Your Connections</h1>
+            <p className="text-xs sm:text-sm text-[#616E5E]">
               Flatmates you liked and mutual connections
             </p>
           </div>
         </div>
 
         {/* Tab Switcher */}
-        <div className="flex items-center bg-[#F0ECFF] p-1 rounded-full border border-[#7056D8]/15 self-start sm:self-auto">
+        <div className="flex items-center bg-[#EBF1EA] p-1 rounded-full border border-[#556852]/15 self-start sm:self-auto">
           <button
             onClick={() => setActiveTab('matches')}
-            className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
+            className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
               activeTab === 'matches'
-                ? 'bg-[#7056D8] text-white shadow-sm'
-                : 'text-[#656377] hover:text-[#252333]'
+                ? 'bg-[#556852] text-[#FAF6EE] shadow-sm'
+                : 'text-[#616E5E] hover:text-[#232B20]'
             }`}
           >
             Mutual Matches ({displayMatches.length})
           </button>
           <button
             onClick={() => setActiveTab('liked')}
-            className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
+            className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
               activeTab === 'liked'
-                ? 'bg-[#7056D8] text-white shadow-sm'
-                : 'text-[#656377] hover:text-[#252333]'
+                ? 'bg-[#556852] text-[#FAF6EE] shadow-sm'
+                : 'text-[#616E5E] hover:text-[#232B20]'
             }`}
           >
             Liked Profiles ({displayLiked.length})

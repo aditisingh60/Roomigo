@@ -182,15 +182,15 @@ const Discover = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-10 space-y-6">
       {/* Header with Title and Filter Button */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-200/60 pb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-[#556852]/15 pb-6">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F0ECFF] text-[#7056D8] text-xs font-bold mb-2">
-            <Sparkles className="w-3.5 h-3.5 text-[#FF8BA7]" /> Compatibility Discovery
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EBF1EA] text-[#374435] text-xs font-semibold mb-2 border border-[#556852]/15">
+            <Sparkles className="w-3.5 h-3.5 text-[#C59B27]" /> Mindful Compatibility Discovery
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-[#252333] tracking-tight">
+          <h1 className="font-serif text-3xl sm:text-4xl text-[#232B20] tracking-tight">
             Find Your Roomie
           </h1>
-          <p className="text-sm text-[#656377] mt-1">
+          <p className="text-sm text-[#616E5E] mt-1">
             People you'll love sharing a home with across India.
           </p>
         </div>
@@ -199,12 +199,12 @@ const Discover = () => {
         <div className="flex items-center gap-2.5">
           <button
             onClick={() => setIsFilterOpen(true)}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white border border-slate-200 shadow-sm text-sm font-semibold text-[#252333] hover:border-[#7056D8] hover:text-[#7056D8] transition-all cursor-pointer"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#FAF6EE] border border-[#556852]/30 shadow-sm text-xs uppercase tracking-widest font-medium text-[#232B20] hover:bg-[#556852] hover:text-[#FAF6EE] transition-all cursor-pointer"
           >
-            <SlidersHorizontal className="w-4 h-4 text-[#7056D8]" />
+            <SlidersHorizontal className="w-3.5 h-3.5" />
             <span>Filters</span>
             {activeFiltersCount > 0 && (
-              <span className="w-5 h-5 rounded-full bg-[#7056D8] text-white text-[10px] font-bold flex items-center justify-center">
+              <span className="w-4 h-4 rounded-full bg-[#D47A60] text-white text-[10px] font-bold flex items-center justify-center">
                 {activeFiltersCount}
               </span>
             )}

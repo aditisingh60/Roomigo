@@ -14,71 +14,70 @@ const PropertyCard = ({
   onView,
 }) => {
   return (
-    <div className="group bg-white rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-xl hover:border-[#7056D8]/20 transition-all duration-300 overflow-hidden flex flex-col justify-between">
+    <div className="group bg-[#FAF6EE] rounded-[28px] border border-[#556852]/15 shadow-sm hover:shadow-xl hover:border-[#556852]/35 transition-all duration-300 overflow-hidden flex flex-col justify-between">
       {/* Property Image with Badge */}
-      <div className="relative h-48 bg-slate-100 overflow-hidden">
+      <div className="relative h-52 bg-[#EBF1EA] overflow-hidden">
         <img
           src={image}
           alt={title}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
           onError={(e) => {
             e.target.src =
               'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=80';
           }}
         />
         <div className="absolute top-3 left-3">
-          <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-md text-[#7056D8] shadow-sm">
+          <span className="text-xs font-semibold px-3 py-1 rounded-full bg-[#FAF6EE]/90 backdrop-blur-md text-[#232B20] border border-[#556852]/15 shadow-sm">
             {type}
           </span>
         </div>
         <div className="absolute bottom-3 right-3">
-          <span className="text-sm font-bold px-3 py-1 rounded-full bg-[#252333]/90 backdrop-blur-md text-white shadow-sm">
+          <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#232B20]/90 backdrop-blur-md text-[#FAF6EE] shadow-sm">
             {rent}
           </span>
         </div>
       </div>
 
       {/* Property Details */}
-      <div className="p-5 flex-1 flex flex-col justify-between">
+      <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between">
         <div>
-          <h3 className="font-bold text-[#252333] text-base mb-1.5 line-clamp-1 group-hover:text-[#7056D8] transition-colors">
+          <h3 className="font-serif text-xl text-[#232B20] mb-1.5 line-clamp-1 group-hover:text-[#556852] transition-colors">
             {title}
           </h3>
 
-          <div className="flex items-center gap-1.5 text-xs text-[#656377] mb-3">
-            <MapPin className="w-3.5 h-3.5 text-[#7056D8] flex-shrink-0" />
+          <div className="flex items-center gap-1.5 text-xs text-[#616E5E] mb-3">
+            <MapPin className="w-3.5 h-3.5 text-[#556852] flex-shrink-0" />
             <span className="truncate">{location}</span>
           </div>
 
-          <div className="flex items-center gap-4 text-xs font-medium text-[#252333] pb-3 border-b border-slate-100 mb-3">
+          <div className="flex items-center gap-4 text-xs font-medium text-[#232B20] pb-3 border-b border-[#556852]/10 mb-3">
             <span className="flex items-center gap-1">
-              <Bed className="w-3.5 h-3.5 text-[#7056D8]" /> {beds} Beds
+              <Bed className="w-3.5 h-3.5 text-[#556852]" /> {beds} Beds
             </span>
             <span className="flex items-center gap-1">
-              <Bath className="w-3.5 h-3.5 text-[#7056D8]" /> {baths} Bath
+              <Bath className="w-3.5 h-3.5 text-[#556852]" /> {baths} Bath
             </span>
           </div>
 
-          {/* Amenities tags */}
-          <div className="flex flex-wrap gap-1 mb-4">
-            {amenities.slice(0, 3).map((amenity, idx) => (
+          <div className="flex flex-wrap gap-1.5 mb-5">
+            {amenities.map((amenity, idx) => (
               <span
                 key={idx}
-                className="text-[11px] bg-[#FAF9F6] text-[#656377] px-2 py-0.5 rounded-md border border-slate-100"
+                className="text-[11px] font-medium bg-[#EBF1EA] text-[#374435] px-2.5 py-0.5 rounded-full border border-[#556852]/10"
               >
-                {amenity}
+                ✦ {amenity}
               </span>
             ))}
           </div>
         </div>
 
         <Button
-          variant="outline"
+          variant="butter"
           size="sm"
-          className="w-full group-hover:bg-[#F0ECFF] group-hover:text-[#7056D8] group-hover:border-[#7056D8]/20"
           onClick={onView}
+          className="w-full text-xs uppercase tracking-wider"
         >
-          Explore Space
+          View Space
         </Button>
       </div>
     </div>
