@@ -1,24 +1,72 @@
-export const initialMessages = [
+// Seed conversations for initial matches
+export const initialConversations = [
   {
-    id: 1,
-    sender: 'Sarah Jenkins',
-    text: "Hi Alex! I noticed our compatibility is 96%. I'm looking for a place in Manhattan starting next month.",
-    timestamp: '10:30 AM',
-    isMe: false,
-  },
-  {
-    id: 2,
-    sender: 'You',
-    text: "Hey Sarah! That's awesome. I'm also looking around Midtown or Lower Manhattan. What is your preferred move-in date?",
-    timestamp: '10:35 AM',
-    isMe: true,
-  },
-  {
-    id: 3,
-    sender: 'Sarah Jenkins',
-    text: 'Ideally July 1st. Are you free for a quick video call tomorrow to chat about apartment options?',
-    timestamp: '10:38 AM',
-    isMe: false,
+    id: 'conv_u1',
+    participantId: 'u1',
+    participant: {
+      id: 'u1',
+      name: 'Maya Lin',
+      age: 24,
+      gender: 'Female',
+      occupation: 'UX Researcher',
+      institution: 'Stripe',
+      location: 'Williamsburg, Brooklyn',
+      image:
+        'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80',
+      bio: 'Plant enthusiast and hybrid UX researcher. Loves weekend farmers markets, brewing specialty matcha, and keeping common spaces serene and tidy.',
+      lifestyle: {
+        smoking: 'No',
+        drinking: 'Occasionally',
+        sleepSchedule: 'Early bird',
+        cleanliness: 'Very Clean',
+        pets: 'Comfortable with pets',
+      },
+      roomPreferences: {
+        bhk: '2 BHK',
+        bedroomType: 'Private bedroom',
+        bathroomType: 'Private bathroom',
+        furnishing: 'Furnished',
+      },
+      locationBudget: {
+        preferredCity: 'New York',
+        preferredLocality: 'Williamsburg, Brooklyn',
+        minBudget: 1000,
+        maxBudget: 1350,
+      },
+      isOnline: true,
+      lastSeen: 'Online',
+    },
+    lastMessageText: "Are you free for a quick coffee or video call this weekend to discuss places?",
+    lastMessageTime: '10:42 AM',
+    unreadCount: 1,
+    messages: [
+      {
+        id: 'msg_1',
+        senderId: 'u1',
+        text: "Hey! I saw we're both looking for a 2BHK in Williamsburg with early bird schedules ✨",
+        timestamp: '10:30 AM',
+        date: 'Today',
+        isMe: false,
+        status: 'read',
+      },
+      {
+        id: 'msg_2',
+        senderId: 'me',
+        text: "Hey Maya! Yes, absolutely. I love that area, especially near Domino Park. What is your ideal move-in date?",
+        timestamp: '10:35 AM',
+        date: 'Today',
+        isMe: true,
+        status: 'read',
+      },
+      {
+        id: 'msg_3',
+        senderId: 'u1',
+        text: "Ideally Dec 1st! Are you free for a quick coffee or video call this weekend to discuss places?",
+        timestamp: '10:42 AM',
+        date: 'Today',
+        isMe: false,
+        status: 'delivered',
+      },
+    ],
   },
 ];
-

@@ -1,53 +1,84 @@
 import React from 'react';
-import { MapPin, DollarSign, Sparkles } from 'lucide-react';
+import { MapPin, Sparkles, Heart } from 'lucide-react';
 import Button from '../common/Button';
 
 const FlatmateCard = ({
   name = 'Alex Morgan',
   age = 24,
   occupation = 'UX Designer',
-  budget = '$850/mo',
-  location = 'Downtown, Brooklyn',
-  compatibilityScore = 94,
+  budget = '$950/mo',
+  location = 'Williamsburg, Brooklyn',
+  compatibilityScore = 95,
+  image = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80',
+  bio = 'Looking for a tidy, communicative roommate to share a cozy flat.',
   tags = ['Night Owl', 'Clean & Quiet', 'Pet Friendly'],
+  onConnect,
 }) => {
   return (
-    <div className="bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow p-5 flex flex-col justify-between">
-      <div>
-        <div className="flex items-start justify-between gap-3 mb-3">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-full bg-indigo-100 text-indigo-700 font-bold flex items-center justify-center text-lg">
+    <div className="group bg-white rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-xl hover:border-[#7056D8]/20 transition-all duration-300 flex flex-col justify-between overflow-hidden">
+      {/* Top Profile Header with Image */}
+      <div className="p-5">
+        <div className="flex items-start gap-3.5 mb-4">
+          <div className="relative flex-shrink-0">
+            <img
+              src={image}
+              alt={name}
+              className="w-16 h-16 rounded-2xl object-cover border-2 border-white shadow-sm ring-2 ring-[#F0ECFF]"
+              onError={(e) => {
+                // Fallback avatar if external image fails
+                e.target.style.display = 'none';
+                e.target.nextSibling.style.display = 'flex';
+              }}
+            />
+            <div
+              style={{ display: 'none' }}
+              className="w-16 h-16 rounded-2xl bg-[#F0ECFF] text-[#7056D8] font-bold text-xl items-center justify-center border-2 border-white shadow-sm ring-2 ring-[#F0ECFF]"
+            >
               {name.charAt(0)}
             </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 text-base">
-                {name}, <span className="text-slate-500 font-normal">{age}</span>
+            <span
+              className="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-500 border-2 border-white rounded-full"
+              title="Active now"
+            />
+          </div>
+
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center justify-between gap-2">
+              <h3 className="font-bold text-[#252333] text-lg truncate">
+                {name},{' '}
+                <span className="text-[#656377] font-normal text-base">{age}</span>
               </h3>
-              <p className="text-xs text-slate-500">{occupation}</p>
+            </div>
+            <p className="text-xs font-medium text-[#7056D8] truncate">{occupation}</p>
+            <div className="flex items-center gap-1 text-xs text-[#656377] mt-1 truncate">
+              <MapPin className="w-3.5 h-3.5 text-[#7056D8] flex-shrink-0" />
+              <span className="truncate">{location}</span>
             </div>
           </div>
-          <span className="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
-            <Sparkles className="w-3 h-3 text-emerald-500" />
+        </div>
+
+        {/* Compatibility Match Badge & Budget */}
+        <div className="flex items-center justify-between gap-2 mb-3 bg-[#FAF9F6] p-2.5 rounded-xl border border-slate-100">
+          <span className="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full bg-[#F0ECFF] text-[#7056D8]">
+            <Sparkles className="w-3 h-3 text-[#7056D8]" />
             {compatibilityScore}% Match
+          </span>
+          <span className="text-xs font-semibold text-[#252333]">
+            Budget: <span className="text-[#7056D8]">{budget}</span>
           </span>
         </div>
 
-        <div className="space-y-1.5 text-xs text-slate-600 mb-4">
-          <div className="flex items-center gap-1.5">
-            <MapPin className="w-3.5 h-3.5 text-slate-400" />
-            <span>{location}</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <DollarSign className="w-3.5 h-3.5 text-slate-400" />
-            <span>Budget: {budget}</span>
-          </div>
-        </div>
+        {/* Short Bio */}
+        <p className="text-xs text-[#656377] leading-relaxed mb-4 line-clamp-2">
+          "{bio}"
+        </p>
 
-        <div className="flex flex-wrap gap-1.5 mb-4">
+        {/* Lifestyle Tags */}
+        <div className="flex flex-wrap gap-1.5">
           {tags.map((tag, idx) => (
             <span
               key={idx}
-              className="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-md"
+              className="text-[11px] font-medium bg-[#F0ECFF]/70 text-[#252333] px-2.5 py-0.5 rounded-full border border-[#7056D8]/10"
             >
               {tag}
             </span>
@@ -55,11 +86,15 @@ const FlatmateCard = ({
         </div>
       </div>
 
-      <div className="flex gap-2 pt-2 border-t border-slate-100">
-        <Button variant="outline" size="sm" className="flex-1">
-          Pass
-        </Button>
-        <Button variant="primary" size="sm" className="flex-1">
+      {/* Card Footer Actions */}
+      <div className="px-5 py-3.5 bg-[#FAF9F6]/80 border-t border-slate-100 flex items-center gap-2">
+        <Button
+          variant="secondary"
+          size="sm"
+          className="flex-1"
+          onClick={onConnect}
+          icon={Heart}
+        >
           Connect
         </Button>
       </div>
@@ -68,4 +103,3 @@ const FlatmateCard = ({
 };
 
 export default FlatmateCard;
-

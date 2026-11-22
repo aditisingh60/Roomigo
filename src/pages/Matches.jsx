@@ -1,43 +1,116 @@
-import React from 'react';
-import { Heart, Sparkles } from 'lucide-react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Heart, Sparkles, MessageSquare, Compass, ArrowRight } from 'lucide-react';
 import FlatmateCard from '../components/cards/FlatmateCard';
+import Button from '../components/common/Button';
+import { useMatch } from '../context/MatchContext';
 import { initialUsers } from '../data/users';
 
 const Matches = () => {
-  // Show high compatibility matches (> 90%)
-  const topMatches = initialUsers.filter((u) => u.compatibilityScore >= 90);
+  const { matches, likedProfiles } = useMatch();
+  const [activeTab, setActiveTab] = useState('matches'); // 'matches' | 'liked'
+
+  // If matches is empty on first load, seed with high compatibility users so page looks rich
+  const displayMatches =
+    matches.length > 0
+      ? matches
+      : initialUsers.filter((u) => u.compatibilityScore >= 92).slice(0, 2);
+
+  const displayLiked =
+    likedProfiles.length > 0
+      ? likedProfiles
+      : initialUsers.slice(0, 3);
+
+  const profilesToShow = activeTab === 'matches' ? displayMatches : displayLiked;
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center gap-3">
-        <div className="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center">
-          <Heart className="w-5 h-5 fill-rose-500" />
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-200/60 pb-6">
+        <div className="flex items-center gap-3.5">
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#7056D8] to-[#FF8BA7] text-white flex items-center justify-center shadow-md shadow-[#7056D8]/20">
+            <Heart className="w-6 h-6 fill-white" />
+          </div>
+          <div>
+            <h1 className="text-3xl font-extrabold text-[#252333]">Your Connections</h1>
+            <p className="text-sm text-[#656377]">
+              Flatmates you liked and mutual connections
+            </p>
+          </div>
         </div>
-        <div>
-          <h1 className="text-2xl font-bold text-slate-900">Your Roommate Matches</h1>
-          <p className="text-sm text-slate-500">
-            Profiles with 90%+ compatibility with your living habits
-          </p>
+
+        {/* Tab Switcher */}
+        <div className="flex items-center bg-[#F0ECFF] p-1 rounded-full border border-[#7056D8]/15 self-start sm:self-auto">
+          <button
+            onClick={() => setActiveTab('matches')}
+            className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
+              activeTab === 'matches'
+                ? 'bg-[#7056D8] text-white shadow-sm'
+                : 'text-[#656377] hover:text-[#252333]'
+            }`}
+          >
+            Mutual Matches ({displayMatches.length})
+          </button>
+          <button
+            onClick={() => setActiveTab('liked')}
+            className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
+              activeTab === 'liked'
+                ? 'bg-[#7056D8] text-white shadow-sm'
+                : 'text-[#656377] hover:text-[#252333]'
+            }`}
+          >
+            Liked Profiles ({displayLiked.length})
+          </button>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {topMatches.map((user) => (
-          <FlatmateCard
-            key={user.id}
-            name={user.name}
-            age={user.age}
-            occupation={user.occupation}
-            budget={user.budget}
-            location={user.location}
-            compatibilityScore={user.compatibilityScore}
-            tags={user.tags}
-          />
-        ))}
-      </div>
+      {/* Profiles Grid */}
+      {profilesToShow.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+          {profilesToShow.map((user) => (
+            <div key={user.id} className="relative group">
+              <FlatmateCard
+                name={user.name}
+                age={user.age}
+                occupation={user.occupation || user.occupationType}
+                budget={user.budget || `$${user.locationBudget?.maxBudget}/mo`}
+                location={user.location || user.locationBudget?.preferredLocality}
+                compatibilityScore={user.compatibilityScore || 92}
+                image={user.image || (user.images && user.images[0])}
+                bio={user.bio}
+                tags={user.tags || ['Verified', 'Co-living']}
+                onConnect={() => {}}
+              />
+              {activeTab === 'matches' && (
+                <div className="mt-2 text-center">
+                  <Link to="/chat" state={{ participantId: user.id }}>
+                    <Button variant="primary" size="sm" icon={MessageSquare} className="w-full">
+                      Start Conversation
+                    </Button>
+                  </Link>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="bg-white rounded-3xl p-12 text-center max-w-md mx-auto space-y-4 border border-slate-200">
+          <div className="w-14 h-14 rounded-2xl bg-[#FFE5EC] text-[#FF8BA7] mx-auto flex items-center justify-center">
+            <Heart className="w-7 h-7" />
+          </div>
+          <h3 className="text-xl font-bold text-[#252333]">No matches yet</h3>
+          <p className="text-xs text-[#656377]">
+            Keep swiping on the Discover page to connect with compatible roommates!
+          </p>
+          <Link to="/discover">
+            <Button variant="primary" size="md" icon={Compass}>
+              Find Flatmates
+            </Button>
+          </Link>
+        </div>
+      )}
     </div>
   );
 };
 
 export default Matches;
-

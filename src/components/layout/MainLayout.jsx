@@ -5,9 +5,9 @@ import Footer from '../common/Footer';
 
 const MainLayout = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans">
+    <div className="min-h-screen flex flex-col bg-[#FAF9F6] text-[#252333] font-sans antialiased selection:bg-[#F0ECFF] selection:text-[#7056D8]">
       <Navbar />
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="flex-1 w-full">
         <Outlet />
       </main>
       <Footer />
@@ -16,4 +16,3 @@ const MainLayout = () => {
 };
 
 export default MainLayout;
-
