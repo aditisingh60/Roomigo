@@ -1,16 +1,16 @@
 import React from 'react';
-import { MapPin, Bed, Bath, Sparkles } from 'lucide-react';
+import { MapPin, Bed, Bath } from 'lucide-react';
 import Button from '../common/Button';
 
 const PropertyCard = ({
-  title = 'Sunny 2-Bedroom Loft in LES',
-  rent = '$1,200/mo',
-  location = 'Lower East Side, Manhattan',
+  title = 'Sunny 2 BHK with Balcony & Modular Kitchen',
+  rent = '₹18,500/mo',
+  location = 'Koramangala, Bengaluru',
   beds = 2,
-  baths = 1,
-  type = 'Private Room',
+  baths = 2,
+  type = 'Private Room in 2 BHK',
   image = 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80',
-  amenities = ['Rooftop Deck', 'In-unit Laundry', 'Dishwasher'],
+  amenities = ['Power Backup', 'Modular Kitchen', 'Wi-Fi 300 Mbps'],
   onView,
 }) => {
   return (

@@ -41,7 +41,7 @@ const FilterDrawer = ({
             </div>
             <button
               onClick={onClose}
-              className="p-2 rounded-xl text-[#656377] hover:text-[#252333] hover:bg-[#FAF9F6] transition-colors"
+              className="p-2 rounded-xl text-[#656377] hover:text-[#252333] hover:bg-[#FAF9F6] transition-colors cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
@@ -58,30 +58,35 @@ const FilterDrawer = ({
                 type="text"
                 value={filters.location}
                 onChange={(e) => update('location', e.target.value)}
-                placeholder="e.g. Williamsburg, Brooklyn, Manhattan"
+                placeholder="e.g. Koramangala, Indiranagar, Bandra, HSR"
                 className="w-full px-3.5 py-2.5 bg-[#FAF9F6] border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7056D8]"
               />
             </div>
 
-            {/* Max Budget Slider */}
+            {/* Max Budget Slider in INR */}
             <div>
               <div className="flex justify-between items-center mb-2">
                 <label className="block text-xs font-bold text-[#252333] uppercase tracking-wider">
                   Maximum Rent Budget
                 </label>
                 <span className="text-xs font-bold text-[#7056D8]">
-                  ${filters.maxBudget} / mo
+                  ₹{filters.maxBudget.toLocaleString('en-IN')} / mo
                 </span>
               </div>
               <input
                 type="range"
-                min="600"
-                max="2500"
-                step="50"
+                min="5000"
+                max="60000"
+                step="1000"
                 value={filters.maxBudget}
                 onChange={(e) => update('maxBudget', Number(e.target.value))}
                 className="w-full accent-[#7056D8] cursor-pointer"
               />
+              <div className="flex justify-between text-[11px] text-[#656377] mt-1 font-medium">
+                <span>₹5,000</span>
+                <span>₹30,000</span>
+                <span>₹60,000+</span>
+              </div>
             </div>
 
             {/* Gender */}
@@ -95,7 +100,7 @@ const FilterDrawer = ({
                     key={g}
                     type="button"
                     onClick={() => update('gender', g)}
-                    className={`py-2 px-1 rounded-xl border transition-all ${
+                    className={`py-2 px-1 rounded-xl border transition-all cursor-pointer ${
                       filters.gender === g
                         ? 'bg-[#7056D8] text-white border-[#7056D8]'
                         : 'bg-[#FAF9F6] text-[#252333] border-slate-200 hover:bg-[#F0ECFF]/60'
@@ -122,7 +127,7 @@ const FilterDrawer = ({
                     key={item.val}
                     type="button"
                     onClick={() => update('occupationType', item.val)}
-                    className={`py-2 px-1 rounded-xl border transition-all ${
+                    className={`py-2 px-1 rounded-xl border transition-all cursor-pointer ${
                       filters.occupationType === item.val
                         ? 'bg-[#7056D8] text-white border-[#7056D8]'
                         : 'bg-[#FAF9F6] text-[#252333] border-slate-200 hover:bg-[#F0ECFF]/60'
@@ -175,7 +180,7 @@ const FilterDrawer = ({
                     key={s}
                     type="button"
                     onClick={() => update('smoking', s)}
-                    className={`py-2 px-1 rounded-xl border transition-all ${
+                    className={`py-2 px-1 rounded-xl border transition-all cursor-pointer ${
                       filters.smoking === s
                         ? 'bg-[#7056D8] text-white border-[#7056D8]'
                         : 'bg-[#FAF9F6] text-[#252333] border-slate-200 hover:bg-[#F0ECFF]/60'
@@ -190,7 +195,7 @@ const FilterDrawer = ({
             {/* 1 BHK / 2 BHK / 3 BHK */}
             <div>
               <label className="block text-xs font-bold text-[#252333] uppercase tracking-wider mb-2">
-                Apartment Type
+                Apartment Layout
               </label>
               <div className="grid grid-cols-4 gap-2 text-xs font-semibold">
                 {['All', '1 BHK', '2 BHK', '3 BHK'].map((b) => (
@@ -198,7 +203,7 @@ const FilterDrawer = ({
                     key={b}
                     type="button"
                     onClick={() => update('bhk', b)}
-                    className={`py-2 px-1 rounded-xl border transition-all ${
+                    className={`py-2 px-1 rounded-xl border transition-all cursor-pointer ${
                       filters.bhk === b
                         ? 'bg-[#7056D8] text-white border-[#7056D8]'
                         : 'bg-[#FAF9F6] text-[#252333] border-slate-200 hover:bg-[#F0ECFF]/60'
@@ -221,7 +226,7 @@ const FilterDrawer = ({
                     key={r}
                     type="button"
                     onClick={() => update('bedroomType', r)}
-                    className={`py-2 px-1 rounded-xl border transition-all ${
+                    className={`py-2 px-1 rounded-xl border transition-all cursor-pointer ${
                       filters.bedroomType === r
                         ? 'bg-[#7056D8] text-white border-[#7056D8]'
                         : 'bg-[#FAF9F6] text-[#252333] border-slate-200 hover:bg-[#F0ECFF]/60'
@@ -255,4 +260,3 @@ const FilterDrawer = ({
 };
 
 export default FilterDrawer;
-

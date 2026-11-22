@@ -2,23 +2,23 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const AuthContext = createContext();
 
-// Pre-seeded demo user
+// Pre-seeded demo user with Indian origin default
 const DEFAULT_DEMO_USER = {
   id: 'user_demo_1',
-  name: 'Alex Johnson',
+  name: 'Aarav Patel',
   email: 'demo@roomigo.com',
   password: 'password123',
   onboardingCompleted: true,
   profile: {
-    name: 'Alex Johnson',
+    name: 'Aarav Patel',
     email: 'demo@roomigo.com',
     profilePic: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=400&q=80',
-    age: 24,
-    gender: 'Non-binary',
+    age: 25,
+    gender: 'Male',
     occupationType: 'Working professional',
-    institution: 'Spotify',
-    occupation: 'UX Designer',
-    bio: 'Product designer who loves quiet mornings, specialty pour-overs, and weekend museum walks. Clean and mindful of shared living vibes.',
+    institution: 'Flipkart',
+    occupation: 'Product Designer',
+    bio: 'Product designer who loves quiet mornings, filter coffee, and weekend runs at Cubbon Park. Clean and respectful of shared flat vibes.',
     // Lifestyle
     smoking: 'No',
     drinking: 'Occasionally',
@@ -30,11 +30,11 @@ const DEFAULT_DEMO_USER = {
     bedroomType: 'Private bedroom',
     bathroomType: 'Private bathroom',
     furnishing: 'Furnished',
-    // Location & Budget
-    preferredCity: 'New York',
-    preferredLocality: 'Williamsburg, Brooklyn',
-    minBudget: 1000,
-    maxBudget: 1400,
+    // Location & Budget in INR
+    preferredCity: 'Bengaluru',
+    preferredLocality: 'Koramangala, Bengaluru',
+    minBudget: 15000,
+    maxBudget: 24000,
     moveInDate: '2026-12-01',
   },
 };
@@ -116,7 +116,7 @@ export const AuthProvider = ({ children }) => {
         name: fullName.trim(),
         email: normalizedEmail,
         profilePic: '',
-        age: 23,
+        age: 24,
         gender: 'Prefer not to say',
         occupationType: 'Working professional',
         institution: '',
@@ -131,10 +131,10 @@ export const AuthProvider = ({ children }) => {
         bedroomType: 'Private bedroom',
         bathroomType: 'Private bathroom',
         furnishing: 'Furnished',
-        preferredCity: 'New York',
-        preferredLocality: 'Williamsburg',
-        minBudget: 900,
-        maxBudget: 1400,
+        preferredCity: 'Bengaluru',
+        preferredLocality: 'Koramangala, Bengaluru',
+        minBudget: 12000,
+        maxBudget: 22000,
         moveInDate: '2026-12-01',
       },
     };

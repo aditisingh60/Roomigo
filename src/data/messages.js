@@ -1,19 +1,19 @@
-// Seed conversations for initial matches
+// Seed conversations for initial matches with Indian origin context
 export const initialConversations = [
   {
     id: 'conv_u1',
     participantId: 'u1',
     participant: {
       id: 'u1',
-      name: 'Maya Lin',
+      name: 'Ananya Sharma',
       age: 24,
       gender: 'Female',
-      occupation: 'UX Researcher',
-      institution: 'Stripe',
-      location: 'Williamsburg, Brooklyn',
+      occupation: 'UX Designer',
+      institution: 'Swiggy',
+      location: 'Koramangala, Bengaluru',
       image:
         'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80',
-      bio: 'Plant enthusiast and hybrid UX researcher. Loves weekend farmers markets, brewing specialty matcha, and keeping common spaces serene and tidy.',
+      bio: 'Plant enthusiast and hybrid designer. Loves weekend runs at Cubbon Park, brewing South Indian filter coffee, and keeping shared living spaces clean and peaceful.',
       lifestyle: {
         smoking: 'No',
         drinking: 'Occasionally',
@@ -28,22 +28,22 @@ export const initialConversations = [
         furnishing: 'Furnished',
       },
       locationBudget: {
-        preferredCity: 'New York',
-        preferredLocality: 'Williamsburg, Brooklyn',
-        minBudget: 1000,
-        maxBudget: 1350,
+        preferredCity: 'Bengaluru',
+        preferredLocality: 'Koramangala, Bengaluru',
+        minBudget: 15000,
+        maxBudget: 22000,
       },
       isOnline: true,
       lastSeen: 'Online',
     },
-    lastMessageText: "Are you free for a quick coffee or video call this weekend to discuss places?",
+    lastMessageText: "Are you free for filter coffee in Koramangala this weekend to discuss flats?",
     lastMessageTime: '10:42 AM',
     unreadCount: 1,
     messages: [
       {
         id: 'msg_1',
         senderId: 'u1',
-        text: "Hey! I saw we're both looking for a 2BHK in Williamsburg with early bird schedules ✨",
+        text: "Hey! I saw we're both looking for a 2 BHK in Koramangala with early bird schedules ✨",
         timestamp: '10:30 AM',
         date: 'Today',
         isMe: false,
@@ -52,7 +52,7 @@ export const initialConversations = [
       {
         id: 'msg_2',
         senderId: 'me',
-        text: "Hey Maya! Yes, absolutely. I love that area, especially near Domino Park. What is your ideal move-in date?",
+        text: "Hey Ananya! Yes, absolutely. I work near Sony World Signal. What is your ideal move-in date?",
         timestamp: '10:35 AM',
         date: 'Today',
         isMe: true,
@@ -61,7 +61,7 @@ export const initialConversations = [
       {
         id: 'msg_3',
         senderId: 'u1',
-        text: "Ideally Dec 1st! Are you free for a quick coffee or video call this weekend to discuss places?",
+        text: "Ideally Dec 1st! Are you free for filter coffee in Koramangala this weekend to discuss flats?",
         timestamp: '10:42 AM',
         date: 'Today',
         isMe: false,

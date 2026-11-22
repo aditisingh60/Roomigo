@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Heart, Sparkles, MessageSquare, ArrowRight, X } from 'lucide-react';
+import { Heart, Sparkles, MessageSquare, X } from 'lucide-react';
 import Button from '../common/Button';
 
 const MatchModal = ({ match, currentUser, onClose }) => {
@@ -38,7 +38,7 @@ const MatchModal = ({ match, currentUser, onClose }) => {
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-2 text-[#656377] hover:text-[#252333] rounded-full hover:bg-[#F0ECFF] transition-colors"
+          className="absolute top-4 right-4 p-2 text-[#656377] hover:text-[#252333] rounded-full hover:bg-[#F0ECFF] transition-colors cursor-pointer"
         >
           <X className="w-5 h-5" />
         </button>
@@ -73,7 +73,7 @@ const MatchModal = ({ match, currentUser, onClose }) => {
             You and {match.name} liked each other!
           </h3>
           <p className="text-xs sm:text-sm text-[#656377]">
-            You both share similar room preferences in {match.location || 'New York'}.
+            You both share compatible flat preferences in {match.location || 'Bengaluru'}.
           </p>
         </div>
 
@@ -104,4 +104,3 @@ const MatchModal = ({ match, currentUser, onClose }) => {
 };
 
 export default MatchModal;
-

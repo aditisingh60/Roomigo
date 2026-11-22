@@ -3,8 +3,6 @@ import {
   ArrowLeft,
   MapPin,
   User,
-  MoreVertical,
-  ShieldCheck,
   Sparkles,
 } from 'lucide-react';
 import MessageBubble from './MessageBubble';
@@ -24,7 +22,6 @@ const ChatWindow = ({
   const participant = conversation?.participant;
   const messages = conversation?.messages || [];
 
-  // Automatically scroll to the latest message
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -88,7 +85,7 @@ const ChatWindow = ({
               <span>•</span>
               <span className="truncate flex items-center gap-0.5">
                 <MapPin className="w-3 h-3 text-[#7056D8] flex-shrink-0" />
-                {participant?.location || 'New York'}
+                {participant?.location || 'Bengaluru'}
               </span>
             </div>
           </div>
@@ -147,7 +144,6 @@ const ChatWindow = ({
           </div>
         )}
 
-        {/* Bottom Scroll Target */}
         <div ref={messagesEndRef} />
       </div>
 
@@ -165,4 +161,3 @@ const ChatWindow = ({
 };
 
 export default ChatWindow;
-

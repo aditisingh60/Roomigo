@@ -5,7 +5,6 @@ import {
   Sparkles,
   Home,
   MapPin,
-  DollarSign,
   ArrowRight,
   ArrowLeft,
   Check,
@@ -13,13 +12,11 @@ import {
   Briefcase,
   GraduationCap,
   Calendar,
-  Smile,
-  ShieldCheck,
+  IndianRupee,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import Button from '../components/common/Button';
 
-// Avatar presets so the user can easily pick an aesthetic photo in 1 click
 const AVATAR_PRESETS = [
   'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
   'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=400&q=80',
@@ -35,9 +32,7 @@ const Onboarding = () => {
 
   const [currentStep, setCurrentStep] = useState(1);
 
-  // Form state pre-populated from current user
   const [formData, setFormData] = useState({
-    // Step 1: Personal Details
     profilePic: currentUser?.profile?.profilePic || AVATAR_PRESETS[0],
     name: currentUser?.name || currentUser?.profile?.name || '',
     age: currentUser?.profile?.age || 24,
@@ -47,7 +42,7 @@ const Onboarding = () => {
     occupation: currentUser?.profile?.occupation || 'Product Designer',
     bio:
       currentUser?.profile?.bio ||
-      'Looking for a tidy, communicative roommate who values good vibes, personal space, and weekend coffee.',
+      'Looking for a tidy, communicative roommate in Bengaluru who values good vibes, personal space, and weekend filter coffee.',
 
     // Step 2: Lifestyle Preferences
     smoking: currentUser?.profile?.smoking || 'No',
@@ -62,11 +57,11 @@ const Onboarding = () => {
     bathroomType: currentUser?.profile?.bathroomType || 'Private bathroom',
     furnishing: currentUser?.profile?.furnishing || 'Furnished',
 
-    // Step 4: Location & Budget
-    preferredCity: currentUser?.profile?.preferredCity || 'New York',
-    preferredLocality: currentUser?.profile?.preferredLocality || 'Williamsburg, Brooklyn',
-    minBudget: currentUser?.profile?.minBudget || 900,
-    maxBudget: currentUser?.profile?.maxBudget || 1400,
+    // Step 4: Location & Budget in INR
+    preferredCity: currentUser?.profile?.preferredCity || 'Bengaluru',
+    preferredLocality: currentUser?.profile?.preferredLocality || 'Koramangala, Bengaluru',
+    minBudget: currentUser?.profile?.minBudget || 12000,
+    maxBudget: currentUser?.profile?.maxBudget || 22000,
     moveInDate: currentUser?.profile?.moveInDate || '2026-12-01',
   });
 
@@ -139,7 +134,6 @@ const Onboarding = () => {
         {/* STEP 1: PERSONAL DETAILS */}
         {currentStep === 1 && (
           <div className="space-y-6 animate-fadeIn">
-            {/* Profile Picture Picker */}
             <div>
               <label className="block text-xs font-bold text-[#252333] uppercase tracking-wider mb-2">
                 Profile Picture
@@ -187,7 +181,6 @@ const Onboarding = () => {
               </div>
             </div>
 
-            {/* Name & Age */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-bold text-[#252333] uppercase tracking-wider mb-1.5">
@@ -198,7 +191,7 @@ const Onboarding = () => {
                   required
                   value={formData.name}
                   onChange={(e) => updateField('name', e.target.value)}
-                  placeholder="Maya Lin"
+                  placeholder="Ananya Sharma"
                   className="w-full px-4 py-2.5 bg-[#FAF9F6] border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7056D8]"
                 />
               </div>
@@ -219,7 +212,6 @@ const Onboarding = () => {
               </div>
             </div>
 
-            {/* Gender Selection */}
             <div>
               <label className="block text-xs font-bold text-[#252333] uppercase tracking-wider mb-2">
                 Gender
@@ -242,7 +234,6 @@ const Onboarding = () => {
               </div>
             </div>
 
-            {/* Student vs Working Professional */}
             <div>
               <label className="block text-xs font-bold text-[#252333] uppercase tracking-wider mb-2">
                 Are you a Student or Working Professional?
@@ -262,7 +253,7 @@ const Onboarding = () => {
                   </div>
                   <div>
                     <p className="text-sm font-bold text-[#252333]">College Student</p>
-                    <p className="text-xs text-[#656377]">Undergrad, grad, or exchange</p>
+                    <p className="text-xs text-[#656377]">Undergrad, MBA, or post-grad</p>
                   </div>
                 </button>
 
@@ -280,13 +271,12 @@ const Onboarding = () => {
                   </div>
                   <div>
                     <p className="text-sm font-bold text-[#252333]">Working Professional</p>
-                    <p className="text-xs text-[#656377]">Full-time, remote, or freelance</p>
+                    <p className="text-xs text-[#656377]">Full-time, IT/tech, or startup</p>
                   </div>
                 </button>
               </div>
             </div>
 
-            {/* College or Company Name + Title */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-bold text-[#252333] uppercase tracking-wider mb-1.5">
@@ -296,7 +286,7 @@ const Onboarding = () => {
                   type="text"
                   value={formData.institution}
                   onChange={(e) => updateField('institution', e.target.value)}
-                  placeholder={formData.occupationType === 'College student' ? 'NYU / Columbia' : 'Stripe / Google'}
+                  placeholder={formData.occupationType === 'College student' ? 'IIT / BITS / IIM / Delhi Univ' : 'Swiggy / Flipkart / Google'}
                   className="w-full px-4 py-2.5 bg-[#FAF9F6] border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7056D8]"
                 />
               </div>
@@ -309,13 +299,12 @@ const Onboarding = () => {
                   type="text"
                   value={formData.occupation}
                   onChange={(e) => updateField('occupation', e.target.value)}
-                  placeholder="UX Researcher"
+                  placeholder="Software Engineer / UX Designer"
                   className="w-full px-4 py-2.5 bg-[#FAF9F6] border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7056D8]"
                 />
               </div>
             </div>
 
-            {/* Short Bio */}
             <div>
               <label className="block text-xs font-bold text-[#252333] uppercase tracking-wider mb-1.5">
                 Short Bio & Introduction
@@ -334,7 +323,6 @@ const Onboarding = () => {
         {/* STEP 2: LIFESTYLE PREFERENCES */}
         {currentStep === 2 && (
           <div className="space-y-6 animate-fadeIn">
-            {/* Smoking */}
             <div>
               <label className="block text-xs font-bold text-[#252333] uppercase tracking-wider mb-2">
                 Smoking
@@ -357,7 +345,6 @@ const Onboarding = () => {
               </div>
             </div>
 
-            {/* Drinking */}
             <div>
               <label className="block text-xs font-bold text-[#252333] uppercase tracking-wider mb-2">
                 Drinking
@@ -382,7 +369,6 @@ const Onboarding = () => {
               </div>
             </div>
 
-            {/* Sleeping Schedule */}
             <div>
               <label className="block text-xs font-bold text-[#252333] uppercase tracking-wider mb-2">
                 Sleeping Schedule
@@ -405,7 +391,6 @@ const Onboarding = () => {
               </div>
             </div>
 
-            {/* Cleanliness Preference */}
             <div>
               <label className="block text-xs font-bold text-[#252333] uppercase tracking-wider mb-2">
                 Cleanliness Preference
@@ -430,7 +415,6 @@ const Onboarding = () => {
               </div>
             </div>
 
-            {/* Pets */}
             <div>
               <label className="block text-xs font-bold text-[#252333] uppercase tracking-wider mb-2">
                 Pets
@@ -460,7 +444,6 @@ const Onboarding = () => {
         {/* STEP 3: ROOM PREFERENCES */}
         {currentStep === 3 && (
           <div className="space-y-6 animate-fadeIn">
-            {/* 1 BHK / 2 BHK / 3 BHK */}
             <div>
               <label className="block text-xs font-bold text-[#252333] uppercase tracking-wider mb-2">
                 Preferred Apartment Layout
@@ -483,7 +466,6 @@ const Onboarding = () => {
               </div>
             </div>
 
-            {/* Shared bedroom / Private bedroom */}
             <div>
               <label className="block text-xs font-bold text-[#252333] uppercase tracking-wider mb-2">
                 Bedroom Preference
@@ -506,7 +488,6 @@ const Onboarding = () => {
               </div>
             </div>
 
-            {/* Shared bathroom / Private bathroom */}
             <div>
               <label className="block text-xs font-bold text-[#252333] uppercase tracking-wider mb-2">
                 Bathroom Preference
@@ -529,7 +510,6 @@ const Onboarding = () => {
               </div>
             </div>
 
-            {/* Furnished / Semi-furnished / Unfurnished */}
             <div>
               <label className="block text-xs font-bold text-[#252333] uppercase tracking-wider mb-2">
                 Furnishing Status
@@ -554,10 +534,9 @@ const Onboarding = () => {
           </div>
         )}
 
-        {/* STEP 4: LOCATION AND BUDGET */}
+        {/* STEP 4: LOCATION AND BUDGET IN INR */}
         {currentStep === 4 && (
           <div className="space-y-6 animate-fadeIn">
-            {/* Preferred City */}
             <div>
               <label className="block text-xs font-bold text-[#252333] uppercase tracking-wider mb-1.5">
                 Preferred City
@@ -569,45 +548,44 @@ const Onboarding = () => {
                   required
                   value={formData.preferredCity}
                   onChange={(e) => updateField('preferredCity', e.target.value)}
-                  placeholder="New York, NY"
+                  placeholder="Bengaluru, Karnataka"
                   className="w-full pl-10 pr-4 py-2.5 bg-[#FAF9F6] border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7056D8]"
                 />
               </div>
             </div>
 
-            {/* Preferred Locality */}
             <div>
               <label className="block text-xs font-bold text-[#252333] uppercase tracking-wider mb-1.5">
-                Preferred Locality / Neighborhoods
+                Preferred Localities / Areas
               </label>
               <input
                 type="text"
                 required
                 value={formData.preferredLocality}
                 onChange={(e) => updateField('preferredLocality', e.target.value)}
-                placeholder="Williamsburg, Lower East Side, Brooklyn..."
+                placeholder="Koramangala, Indiranagar, HSR Layout, Bellandur..."
                 className="w-full px-4 py-2.5 bg-[#FAF9F6] border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7056D8]"
               />
             </div>
 
-            {/* Monthly Rent Budget (Min & Max) */}
+            {/* Monthly Rent Budget in INR */}
             <div>
               <div className="flex justify-between items-center mb-1.5">
                 <label className="block text-xs font-bold text-[#252333] uppercase tracking-wider">
                   Monthly Rent Budget Range
                 </label>
                 <span className="text-xs font-bold text-[#7056D8]">
-                  ${formData.minBudget} – ${formData.maxBudget} / mo
+                  ₹{formData.minBudget.toLocaleString('en-IN')} – ₹{formData.maxBudget.toLocaleString('en-IN')} / mo
                 </span>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <span className="text-xs text-[#656377] block mb-1">Min Budget ($)</span>
+                  <span className="text-xs text-[#656377] block mb-1">Min Budget (₹)</span>
                   <div className="relative">
-                    <DollarSign className="w-4 h-4 text-[#656377] absolute left-3.5 top-3.5" />
+                    <IndianRupee className="w-4 h-4 text-[#656377] absolute left-3.5 top-3.5" />
                     <input
                       type="number"
-                      step="50"
+                      step="1000"
                       value={formData.minBudget}
                       onChange={(e) => updateField('minBudget', Number(e.target.value))}
                       className="w-full pl-9 pr-3 py-2 bg-[#FAF9F6] border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7056D8]"
@@ -616,12 +594,12 @@ const Onboarding = () => {
                 </div>
 
                 <div>
-                  <span className="text-xs text-[#656377] block mb-1">Max Budget ($)</span>
+                  <span className="text-xs text-[#656377] block mb-1">Max Budget (₹)</span>
                   <div className="relative">
-                    <DollarSign className="w-4 h-4 text-[#656377] absolute left-3.5 top-3.5" />
+                    <IndianRupee className="w-4 h-4 text-[#656377] absolute left-3.5 top-3.5" />
                     <input
                       type="number"
-                      step="50"
+                      step="1000"
                       value={formData.maxBudget}
                       onChange={(e) => updateField('maxBudget', Number(e.target.value))}
                       className="w-full pl-9 pr-3 py-2 bg-[#FAF9F6] border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7056D8]"
@@ -631,7 +609,6 @@ const Onboarding = () => {
               </div>
             </div>
 
-            {/* Move-in Date */}
             <div>
               <label className="block text-xs font-bold text-[#252333] uppercase tracking-wider mb-1.5">
                 Target Move-In Date
@@ -695,4 +672,3 @@ const Onboarding = () => {
 };
 
 export default Onboarding;
-

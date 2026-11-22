@@ -1,17 +1,16 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   MapPin,
   Sparkles,
   Heart,
   X,
-  DollarSign,
   Briefcase,
   GraduationCap,
   Calendar,
   Home,
   ChevronLeft,
   ChevronRight,
-  Info,
+  IndianRupee,
 } from 'lucide-react';
 
 const SwipeCard = ({
@@ -22,12 +21,11 @@ const SwipeCard = ({
   translateY = 0,
 }) => {
   const [photoIndex, setPhotoIndex] = useState(0);
-  const [showFullBio, setShowFullBio] = useState(false);
 
   // Dragging state
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
-  const [isExiting, setIsExiting] = useState(null); // 'left' | 'right' | null
+  const [isExiting, setIsExiting] = useState(null);
 
   const cardRef = useRef(null);
   const startPos = useRef({ x: 0, y: 0 });
@@ -77,37 +75,22 @@ const SwipeCard = ({
   };
 
   const finalizeSwipe = (dx) => {
-    const threshold = 90; // Pixels to trigger swipe
+    const threshold = 90;
     if (dx > threshold) {
-      // Swipe Right = Like
       setIsExiting('right');
       setTimeout(() => onSwipe('right', profile), 260);
     } else if (dx < -threshold) {
-      // Swipe Left = Pass
       setIsExiting('left');
       setTimeout(() => onSwipe('left', profile), 260);
     } else {
-      // Snap back
       setDragOffset({ x: 0, y: 0 });
     }
   };
 
-  // External trigger animation
-  const triggerSwipeAnimation = (direction) => {
-    setIsExiting(direction);
-    setDragOffset({
-      x: direction === 'right' ? window.innerWidth : -window.innerWidth,
-      y: 0,
-    });
-    setTimeout(() => onSwipe(direction, profile), 260);
-  };
-
-  // Rotation and opacity derived from drag
   const rotation = dragOffset.x * 0.08;
   const likeOpacity = Math.min(Math.max(dragOffset.x / 100, 0), 1);
   const passOpacity = Math.min(Math.max(-dragOffset.x / 100, 0), 1);
 
-  // Next / Previous photo handlers (prevent triggering card drag)
   const prevPhoto = (e) => {
     e.stopPropagation();
     setPhotoIndex((prev) => (prev > 0 ? prev - 1 : photos.length - 1));
@@ -117,6 +100,12 @@ const SwipeCard = ({
     e.stopPropagation();
     setPhotoIndex((prev) => (prev < photos.length - 1 ? prev + 1 : 0));
   };
+
+  const displayBudget =
+    profile.budget ||
+    (profile.locationBudget?.maxBudget
+      ? `₹${profile.locationBudget.maxBudget.toLocaleString('en-IN')}/mo`
+      : '₹18,000/mo');
 
   return (
     <div
@@ -141,7 +130,6 @@ const SwipeCard = ({
       {/* Visual Swipe Stamps */}
       {isTopCard && (
         <>
-          {/* LIKE Stamp (Right drag) */}
           <div
             style={{ opacity: likeOpacity }}
             className="absolute top-8 left-8 z-30 border-4 border-emerald-500 text-emerald-500 font-black text-2xl sm:text-3xl px-4 py-1.5 rounded-2xl -rotate-12 uppercase tracking-wider backdrop-blur-sm bg-emerald-50/40 pointer-events-none transition-opacity"
@@ -149,7 +137,6 @@ const SwipeCard = ({
             LIKE
           </div>
 
-          {/* PASS Stamp (Left drag) */}
           <div
             style={{ opacity: passOpacity }}
             className="absolute top-8 right-8 z-30 border-4 border-rose-500 text-rose-500 font-black text-2xl sm:text-3xl px-4 py-1.5 rounded-2xl rotate-12 uppercase tracking-wider backdrop-blur-sm bg-rose-50/40 pointer-events-none transition-opacity"
@@ -168,10 +155,9 @@ const SwipeCard = ({
           draggable="false"
         />
 
-        {/* Ambient Dark Gradient for text readability */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#252333]/90 via-[#252333]/30 to-transparent pointer-events-none" />
 
-        {/* Compatibility Pill (Top Left) */}
+        {/* Compatibility Pill */}
         <div className="absolute top-4 left-4 z-20">
           <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/95 backdrop-blur-md text-[#7056D8] font-extrabold text-xs shadow-md">
             <Sparkles className="w-3.5 h-3.5 text-[#FF8BA7]" />
@@ -179,7 +165,7 @@ const SwipeCard = ({
           </span>
         </div>
 
-        {/* Photo Indicators / Carousel Dots */}
+        {/* Photo Indicators */}
         {photos.length > 1 && (
           <div className="absolute top-4 right-4 z-20 flex gap-1.5">
             {photos.map((_, i) => (
@@ -193,7 +179,7 @@ const SwipeCard = ({
           </div>
         )}
 
-        {/* Photo Navigation arrows on desktop hover */}
+        {/* Photo Nav Arrows */}
         {photos.length > 1 && (
           <div className="absolute inset-y-0 inset-x-2 flex items-center justify-between pointer-events-none opacity-0 hover:opacity-100 transition-opacity">
             <button
@@ -211,7 +197,7 @@ const SwipeCard = ({
           </div>
         )}
 
-        {/* Primary Profile Details Overlaid on Image */}
+        {/* Primary Profile Details in INR */}
         <div className="absolute bottom-4 left-5 right-5 z-20 text-white">
           <div className="flex items-baseline gap-2">
             <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
@@ -235,16 +221,16 @@ const SwipeCard = ({
           <div className="flex items-center justify-between text-xs text-white/80 mt-1">
             <span className="flex items-center gap-1 truncate">
               <MapPin className="w-3.5 h-3.5 text-[#FF8BA7] flex-shrink-0" />
-              {profile.location || profile.locationBudget?.preferredLocality}
+              {profile.location || profile.locationBudget?.preferredLocality || 'Bengaluru'}
             </span>
             <span className="font-extrabold text-sm text-white bg-white/20 backdrop-blur-md px-2.5 py-0.5 rounded-lg ml-2 flex-shrink-0">
-              {profile.budget || `$${profile.locationBudget?.maxBudget}/mo`}
+              {displayBudget}
             </span>
           </div>
         </div>
       </div>
 
-      {/* Bottom Profile Details (Scrollable content) */}
+      {/* Bottom Profile Details */}
       <div className="p-5 flex-1 overflow-y-auto space-y-4 bg-white text-[#252333]">
         {/* Short Introduction Bio */}
         <div>
@@ -306,4 +292,3 @@ const SwipeCard = ({
 };
 
 export default SwipeCard;
-

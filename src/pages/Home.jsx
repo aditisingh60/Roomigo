@@ -26,8 +26,6 @@ const Home = () => {
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
-  // Functional requirement:
-  // "Find Your Flatmate should navigate to /discover if authenticated, otherwise redirect to login."
   const handleFindFlatmate = () => {
     if (isAuthenticated) {
       navigate('/discover');
@@ -36,8 +34,6 @@ const Home = () => {
     }
   };
 
-  // Functional requirement:
-  // "Explore Homes should navigate to the property discovery section or page."
   const handleExploreHomes = () => {
     const el = document.getElementById('explore-homes');
     if (el) {
@@ -47,7 +43,6 @@ const Home = () => {
     }
   };
 
-  // Top 3 sample flatmates for featured section
   const featuredFlatmates = initialUsers.slice(0, 3);
 
   return (
@@ -64,7 +59,7 @@ const Home = () => {
             {/* Pill Badge */}
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#F0ECFF] border border-[#7056D8]/20 text-[#7056D8] text-xs font-semibold shadow-sm animate-fadeIn">
               <Sparkles className="w-3.5 h-3.5 text-[#7056D8]" />
-              <span>Modern Flatmate Discovery & Shared Living</span>
+              <span>India's Modern Flatmate Discovery & Co-Living Platform</span>
             </div>
 
             {/* Main Heading */}
@@ -128,7 +123,7 @@ const Home = () => {
                 />
               </div>
               <span>
-                Joined by <strong className="text-[#252333] font-semibold">12,000+ flatmates</strong> in NYC & major cities
+                Joined by <strong className="text-[#252333] font-semibold">12,000+ flatmates</strong> across Bengaluru, Mumbai, Delhi NCR & Pune
               </span>
             </div>
           </div>
@@ -143,7 +138,7 @@ const Home = () => {
               <div className="relative h-[320px] sm:h-[440px] md:h-[500px] w-full rounded-2xl overflow-hidden bg-slate-100">
                 <img
                   src="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=1600&q=80"
-                  alt="Young flatmates enjoying their modern shared apartment"
+                  alt="Young flatmates enjoying their modern shared apartment in Bengaluru"
                   className="w-full h-full object-cover object-center"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#252333]/50 via-transparent to-transparent" />
@@ -162,22 +157,22 @@ const Home = () => {
                     <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                   </div>
                   <p className="text-[11px] sm:text-xs text-[#656377]">
-                    Quiet hours • Pet friendly • Non-smoker
+                    Early riser • Non-smoker • Vegetarian friendly
                   </p>
                 </div>
               </div>
 
-              {/* Floating Badge 2 (Bottom Left): Location & Flat Preview */}
+              {/* Floating Badge 2 (Bottom Left): Location & Flat Preview in INR */}
               <div className="absolute bottom-6 left-6 sm:bottom-8 sm:left-8 bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-2xl p-3 sm:p-4 shadow-xl shadow-slate-900/10 flex items-center gap-3 max-w-[280px] sm:max-w-xs">
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#7056D8] to-[#FF8BA7] text-white flex items-center justify-center flex-shrink-0">
                   <HomeIcon className="w-5 h-5" />
                 </div>
                 <div className="min-w-0">
                   <p className="text-xs sm:text-sm font-bold text-[#252333] truncate">
-                    Brooklyn Sunlit 2BR
+                    Koramangala 2 BHK
                   </p>
                   <p className="text-[11px] sm:text-xs text-[#656377] flex items-center gap-1">
-                    <MapPin className="w-3 h-3 text-[#7056D8]" /> Williamsburg • Move-in Oct 1
+                    <MapPin className="w-3 h-3 text-[#7056D8]" /> 4th Block • ₹18,500/mo
                   </p>
                 </div>
               </div>
@@ -203,7 +198,6 @@ const Home = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-          {/* Step 1 */}
           <div className="bg-white rounded-3xl p-8 border border-slate-200/80 shadow-sm hover:shadow-xl hover:border-[#7056D8]/30 transition-all duration-300 relative flex flex-col justify-between group">
             <div>
               <div className="flex items-center justify-between mb-6">
@@ -218,7 +212,7 @@ const Home = () => {
                 Create Your Profile
               </h3>
               <p className="text-sm text-[#656377] leading-relaxed">
-                Tell us about your lifestyle and preferences. Share your sleep schedule, cleanliness, work habits, budget, and neighborhood goals.
+                Tell us about your lifestyle and preferences. Share your sleep schedule, cleanliness, work habits, budget in ₹, and preferred localities.
               </p>
             </div>
             <div className="mt-6 pt-4 border-t border-slate-100 flex items-center gap-1.5 text-xs font-semibold text-[#7056D8]">
@@ -226,7 +220,6 @@ const Home = () => {
             </div>
           </div>
 
-          {/* Step 2 */}
           <div className="bg-white rounded-3xl p-8 border border-slate-200/80 shadow-sm hover:shadow-xl hover:border-[#7056D8]/30 transition-all duration-300 relative flex flex-col justify-between group">
             <div>
               <div className="flex items-center justify-between mb-6">
@@ -249,7 +242,6 @@ const Home = () => {
             </div>
           </div>
 
-          {/* Step 3 */}
           <div className="bg-white rounded-3xl p-8 border border-slate-200/80 shadow-sm hover:shadow-xl hover:border-[#7056D8]/30 transition-all duration-300 relative flex flex-col justify-between group">
             <div>
               <div className="flex items-center justify-between mb-6">
@@ -264,7 +256,7 @@ const Home = () => {
                 Connect & Move In
               </h3>
               <p className="text-sm text-[#656377] leading-relaxed">
-                Chat with your match and find your perfect home. Break the ice, schedule coffee or apartment tours, and sign your shared lease with confidence.
+                Chat with your match and find your perfect home. Break the ice, schedule coffee or flat viewings, and move in together with peace of mind.
               </p>
             </div>
             <div className="mt-6 pt-4 border-t border-slate-100 flex items-center gap-1.5 text-xs font-semibold text-[#7056D8]">
@@ -286,13 +278,11 @@ const Home = () => {
             Built For Meaningful Living Companionship
           </h2>
           <p className="text-base text-[#656377]">
-            Say goodbye to awkward Craigslist posts and anonymous listings. Roomigo gives you clarity before you commit.
+            Say goodbye to spammy broker calls and awkward flatmate hunts. Roomigo gives you clarity before you commit.
           </p>
         </div>
 
-        {/* Feature Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Feature 1: Personality-based matching */}
           <div className="bg-white p-7 rounded-3xl border border-slate-200/80 shadow-sm hover:shadow-xl hover:border-[#7056D8]/20 transition-all duration-300 flex flex-col justify-between">
             <div className="space-y-4">
               <div className="w-12 h-12 rounded-2xl bg-[#F0ECFF] text-[#7056D8] flex items-center justify-center">
@@ -302,12 +292,11 @@ const Home = () => {
                 Personality-Based Matching
               </h3>
               <p className="text-sm text-[#656377] leading-relaxed">
-                Compare sleep cycles, cleanliness standards, work-from-home styles, social energy, and guest policies so living together is effortless.
+                Compare sleep cycles, cleanliness standards, work-from-home routines, social energy, and dietary preferences so living together is effortless.
               </p>
             </div>
           </div>
 
-          {/* Feature 2: Location-based discovery */}
           <div className="bg-white p-7 rounded-3xl border border-slate-200/80 shadow-sm hover:shadow-xl hover:border-[#7056D8]/20 transition-all duration-300 flex flex-col justify-between">
             <div className="space-y-4">
               <div className="w-12 h-12 rounded-2xl bg-[#FFE5EC] text-[#FF8BA7] flex items-center justify-center">
@@ -317,19 +306,17 @@ const Home = () => {
                 Location-Based Discovery
               </h3>
               <p className="text-sm text-[#656377] leading-relaxed">
-                Search compatible roommates looking in your exact target neighborhoods, subway routes, commute times, and favorite parks.
+                Search compatible roommates looking in your exact target localities, tech park corridors, metro lines, and favorite cafes.
               </p>
             </div>
           </div>
 
-          {/* Feature 3: Verified User Profiles (Future Feature Badge) */}
           <div className="bg-gradient-to-br from-white to-[#F0ECFF]/30 p-7 rounded-3xl border border-[#7056D8]/30 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between relative overflow-hidden">
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div className="w-12 h-12 rounded-2xl bg-[#F0ECFF] text-[#7056D8] flex items-center justify-center">
                   <ShieldCheck className="w-6 h-6" />
                 </div>
-                {/* Future Feature Badge */}
                 <span className="inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#7056D8] text-white shadow-sm">
                   <Clock className="w-3 h-3" /> Future Feature
                 </span>
@@ -338,12 +325,11 @@ const Home = () => {
                 Verified User Profiles
               </h3>
               <p className="text-sm text-[#656377] leading-relaxed">
-                We are actively building optional government ID and employment verification so you know exactly who you're speaking with before meeting.
+                We are actively building optional government ID, LinkedIn, and employer verification so you know exactly who you're speaking with before meeting.
               </p>
             </div>
           </div>
 
-          {/* Feature 4: Easy Communication */}
           <div className="bg-white p-7 rounded-3xl border border-slate-200/80 shadow-sm hover:shadow-xl hover:border-[#7056D8]/20 transition-all duration-300 flex flex-col justify-between">
             <div className="space-y-4">
               <div className="w-12 h-12 rounded-2xl bg-[#F0ECFF] text-[#7056D8] flex items-center justify-center">
@@ -353,12 +339,11 @@ const Home = () => {
                 Easy Communication
               </h3>
               <p className="text-sm text-[#656377] leading-relaxed">
-                Direct in-app messaging lets you break the ice, exchange flat preferences, and arrange video calls without sharing personal phone numbers.
+                Direct in-app messaging lets you break the ice, exchange flat preferences, and arrange visits without sharing personal phone numbers upfront.
               </p>
             </div>
           </div>
 
-          {/* Feature 5: Property Discovery */}
           <div className="bg-white p-7 rounded-3xl border border-slate-200/80 shadow-sm hover:shadow-xl hover:border-[#7056D8]/20 transition-all duration-300 flex flex-col justify-between md:col-span-2 lg:col-span-2">
             <div className="space-y-4">
               <div className="w-12 h-12 rounded-2xl bg-[#F0ECFF] text-[#7056D8] flex items-center justify-center">
@@ -368,7 +353,7 @@ const Home = () => {
                 Integrated Property Discovery
               </h3>
               <p className="text-sm text-[#656377] leading-relaxed max-w-xl">
-                Browse verified available rooms in already occupied apartments or partner up with a prospective flatmate to apply for a brand new multi-bedroom lease together.
+                Browse verified available rooms in already occupied 2 & 3 BHK apartments or partner up with a matched flatmate to lease a brand new space together.
               </p>
             </div>
           </div>
@@ -382,13 +367,13 @@ const Home = () => {
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-12">
           <div className="space-y-2">
             <span className="text-xs font-bold uppercase tracking-wider text-[#7056D8] bg-[#F0ECFF] px-3.5 py-1 rounded-full border border-[#7056D8]/20">
-              Curated Matches
+              Curated Profiles
             </span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-[#252333]">
               Featured Flatmates
             </h2>
             <p className="text-base text-[#656377]">
-              Real people looking for compatible roommates right now in your city.
+              Real working professionals and students looking for roommates right now.
             </p>
           </div>
           <Button
@@ -402,7 +387,6 @@ const Home = () => {
           </Button>
         </div>
 
-        {/* 3 Sample Flatmate Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
           {featuredFlatmates.map((flatmate) => (
             <FlatmateCard
@@ -423,7 +407,7 @@ const Home = () => {
       </section>
 
       {/* =========================================================================
-          EXPLORE HOMES (PROPERTY DISCOVERY SECTION)
+          EXPLORE HOMES (PROPERTY DISCOVERY SECTION IN INR)
           ========================================================================= */}
       <section id="explore-homes" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-28">
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-12">
@@ -432,10 +416,10 @@ const Home = () => {
               Curated Spaces
             </span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-[#252333]">
-              Explore Available Homes & Rooms
+              Explore Available Flats & Rooms
             </h2>
             <p className="text-base text-[#656377]">
-              Cozy lofts, modern apartments, and private rooms looking for a flatmate.
+              Spacious 2 & 3 BHK flats and private rooms looking for a flatmate in top localities.
             </p>
           </div>
         </div>
@@ -463,7 +447,6 @@ const Home = () => {
           ========================================================================= */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-[#7056D8] via-[#6449cf] to-[#5136b6] p-8 sm:p-14 md:p-16 text-center text-white shadow-2xl shadow-[#7056D8]/25">
-          {/* Subtle Ambient Decorative Glows */}
           <div className="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 bg-[#FF8BA7]/25 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-white/10 rounded-full blur-3xl pointer-events-none" />
 
@@ -494,7 +477,7 @@ const Home = () => {
             </div>
 
             <p className="text-xs text-white/60">
-              Free to get started • Verified community • No spam
+              Free to get started • Verified community • No broker spam
             </p>
           </div>
         </div>

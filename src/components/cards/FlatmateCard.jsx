@@ -1,17 +1,17 @@
 import React from 'react';
-import { MapPin, Sparkles, Heart } from 'lucide-react';
+import { MapPin, Sparkles, Heart, IndianRupee } from 'lucide-react';
 import Button from '../common/Button';
 
 const FlatmateCard = ({
-  name = 'Alex Morgan',
+  name = 'Ananya Sharma',
   age = 24,
   occupation = 'UX Designer',
-  budget = '$950/mo',
-  location = 'Williamsburg, Brooklyn',
-  compatibilityScore = 95,
+  budget = '₹18,500/mo',
+  location = 'Koramangala, Bengaluru',
+  compatibilityScore = 98,
   image = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80',
-  bio = 'Looking for a tidy, communicative roommate to share a cozy flat.',
-  tags = ['Night Owl', 'Clean & Quiet', 'Pet Friendly'],
+  bio = 'Looking for a tidy, communicative roommate to share a cozy 2 BHK in Bengaluru.',
+  tags = ['Early Bird', 'Filter Coffee', 'Non-smoker'],
   onConnect,
 }) => {
   return (
@@ -25,7 +25,6 @@ const FlatmateCard = ({
               alt={name}
               className="w-16 h-16 rounded-2xl object-cover border-2 border-white shadow-sm ring-2 ring-[#F0ECFF]"
               onError={(e) => {
-                // Fallback avatar if external image fails
                 e.target.style.display = 'none';
                 e.target.nextSibling.style.display = 'flex';
               }}
@@ -57,14 +56,14 @@ const FlatmateCard = ({
           </div>
         </div>
 
-        {/* Compatibility Match Badge & Budget */}
+        {/* Compatibility Match Badge & Budget in INR */}
         <div className="flex items-center justify-between gap-2 mb-3 bg-[#FAF9F6] p-2.5 rounded-xl border border-slate-100">
           <span className="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full bg-[#F0ECFF] text-[#7056D8]">
             <Sparkles className="w-3 h-3 text-[#7056D8]" />
             {compatibilityScore}% Match
           </span>
-          <span className="text-xs font-semibold text-[#252333]">
-            Budget: <span className="text-[#7056D8]">{budget}</span>
+          <span className="text-xs font-semibold text-[#252333] flex items-center gap-1">
+            Budget: <span className="text-[#7056D8] font-bold">{budget}</span>
           </span>
         </div>
 

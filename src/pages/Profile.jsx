@@ -4,13 +4,13 @@ import {
   User,
   Settings,
   MapPin,
-  DollarSign,
   Sparkles,
   Calendar,
   Briefcase,
   GraduationCap,
   Home,
   CheckCircle2,
+  IndianRupee,
 } from 'lucide-react';
 import Button from '../components/common/Button';
 import { useAuth } from '../context/AuthContext';
@@ -22,6 +22,9 @@ const Profile = () => {
   const profilePic =
     profile.profilePic ||
     'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=400&q=80';
+
+  const minB = profile.minBudget ? Number(profile.minBudget).toLocaleString('en-IN') : '12,000';
+  const maxB = profile.maxBudget ? Number(profile.maxBudget).toLocaleString('en-IN') : '22,000';
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 space-y-8">
@@ -63,11 +66,10 @@ const Profile = () => {
               <div className="flex flex-wrap items-center gap-3 mt-2 text-xs text-[#656377]">
                 <span className="flex items-center gap-1">
                   <MapPin className="w-3.5 h-3.5 text-[#7056D8]" />
-                  {profile.preferredLocality || profile.preferredCity || 'New York'}
+                  {profile.preferredLocality || profile.preferredCity || 'Koramangala, Bengaluru'}
                 </span>
                 <span className="flex items-center gap-1 font-bold text-[#252333]">
-                  <DollarSign className="w-3.5 h-3.5 text-[#7056D8]" />
-                  ${profile.minBudget || 900} – ${profile.maxBudget || 1400} / mo
+                  ₹{minB} – ₹{maxB} / mo
                 </span>
               </div>
             </div>

@@ -65,7 +65,7 @@ export const ChatProvider = ({ children }) => {
               gender: matchedUser.gender || 'Unknown',
               occupation: matchedUser.occupation || matchedUser.occupationType,
               institution: matchedUser.institution || '',
-              location: matchedUser.location || matchedUser.locationBudget?.preferredLocality || 'New York',
+              location: matchedUser.location || matchedUser.locationBudget?.preferredLocality || 'Bengaluru',
               image: matchedUser.image || (matchedUser.images && matchedUser.images[0]),
               bio: matchedUser.bio || 'Excited to find a compatible flatmate!',
               lifestyle: matchedUser.lifestyle || {},
@@ -74,14 +74,14 @@ export const ChatProvider = ({ children }) => {
               isOnline: true,
               lastSeen: 'Online',
             },
-            lastMessageText: `Hey! We're a mutual match 🎉 Excited to connect!`,
+            lastMessageText: `Hey! We're a mutual match on Roomigo 🎉 Excited to connect!`,
             lastMessageTime: formatCurrentTime(),
             unreadCount: 1,
             messages: [
               {
                 id: `msg_${Date.now()}`,
                 senderId: matchedUser.id,
-                text: `Hey! We matched on Roomigo 🎉 I saw our lifestyle preferences align really well. Are you still looking for a place?`,
+                text: `Hey! We matched on Roomigo 🎉 I saw our lifestyle preferences align really well. Are you looking for a place in ${matchedUser.location || 'Bengaluru'}?`,
                 timestamp: formatCurrentTime(),
                 date: 'Today',
                 isMe: false,
@@ -159,9 +159,7 @@ export const ChatProvider = ({ children }) => {
     }, 400);
 
     // SIMULATE AUTOMATED REPLY AFTER 1.5s
-    // (Architecture note: In a real environment with Socket.IO, this is replaced by socket.emit('send_message'))
     const activeConv = conversations.find((c) => c.id === conversationId);
-    const participantName = activeConv?.participant?.name || 'Your match';
 
     setTimeout(() => {
       setIsTyping(true);
@@ -170,18 +168,18 @@ export const ChatProvider = ({ children }) => {
     setTimeout(() => {
       setIsTyping(false);
 
-      // Contextual replies based on message content
+      // Contextual replies with Indian origin context
       let replyText = `That sounds awesome! I'm really excited about sharing a space. When can we check out some flats? 😊`;
       const lower = messageText.toLowerCase();
 
-      if (lower.includes('coffee') || lower.includes('meet') || lower.includes('call')) {
-        replyText = `I'd love to! Saturday afternoon works great for coffee or a quick video call. What time suits you best? ☕`;
+      if (lower.includes('coffee') || lower.includes('chai') || lower.includes('meet') || lower.includes('call')) {
+        replyText = `I'd love to! Saturday afternoon works great for filter coffee in Koramangala or a quick call. What time suits you? ☕`;
       } else if (lower.includes('rent') || lower.includes('budget') || lower.includes('price')) {
-        replyText = `That budget range works really well for the 2BHK places I've saved in Brooklyn! 🏠`;
+        replyText = `That budget fits really well with the 2 BHK listings around HSR and Koramangala! 🏠`;
       } else if (lower.includes('when') || lower.includes('move') || lower.includes('date')) {
         replyText = `I'm aiming for the 1st of next month, but I can be flexible by a week or two!`;
       } else if (lower.includes('pet') || lower.includes('dog') || lower.includes('cat')) {
-        replyText = `I love animals! Having pets around makes the apartment feel so much cozier 🐾`;
+        replyText = `I love pets! Having a pet around makes the flat feel like home 🐾`;
       }
 
       const replyTime = formatCurrentTime();
@@ -212,7 +210,6 @@ export const ChatProvider = ({ children }) => {
     }, 2400);
   };
 
-  // Helper to get active conversation object
   const activeConversation = conversations.find((c) => c.id === activeConversationId) || null;
 
   return (

@@ -2,17 +2,21 @@ import React from 'react';
 import {
   X,
   MapPin,
-  DollarSign,
   Sparkles,
-  Home,
   Briefcase,
   GraduationCap,
-  Calendar,
+  IndianRupee,
 } from 'lucide-react';
 import Button from '../common/Button';
 
 const ProfileModal = ({ profile, isOpen, onClose }) => {
   if (!isOpen || !profile) return null;
+
+  const displayBudget =
+    profile.budget ||
+    (profile.locationBudget?.maxBudget
+      ? `₹${profile.locationBudget.maxBudget.toLocaleString('en-IN')}/mo`
+      : '₹18,500/mo');
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -76,11 +80,10 @@ const ProfileModal = ({ profile, isOpen, onClose }) => {
           <div className="grid grid-cols-2 gap-3 text-xs bg-[#FAF9F6] p-3.5 rounded-2xl border border-slate-100">
             <div className="flex items-center gap-1.5 text-[#252333]">
               <MapPin className="w-4 h-4 text-[#7056D8]" />
-              <span className="truncate">{profile.location || 'New York'}</span>
+              <span className="truncate">{profile.location || 'Bengaluru'}</span>
             </div>
             <div className="flex items-center gap-1.5 text-[#252333]">
-              <DollarSign className="w-4 h-4 text-[#7056D8]" />
-              <span className="font-bold">{profile.budget || `$${profile.locationBudget?.maxBudget || 1200}/mo`}</span>
+              <span className="font-bold text-[#7056D8]">{displayBudget}</span>
             </div>
           </div>
 
@@ -157,4 +160,3 @@ const ProfileModal = ({ profile, isOpen, onClose }) => {
 };
 
 export default ProfileModal;
-

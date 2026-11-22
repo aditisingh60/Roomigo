@@ -5,10 +5,7 @@ import {
   X,
   Heart,
   RotateCcw,
-  Users,
   Compass,
-  ArrowRight,
-  Filter,
 } from 'lucide-react';
 import SwipeCard from '../components/cards/SwipeCard';
 import FilterDrawer from '../components/discovery/FilterDrawer';
@@ -32,14 +29,14 @@ const Discover = () => {
 
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
-  // Filters state
+  // Filters state with INR default values
   const [filters, setFilters] = useState({
     location: '',
     minAge: 18,
     maxAge: 40,
     gender: 'All',
     occupationType: 'All',
-    maxBudget: 2200,
+    maxBudget: 35000,
     smoking: 'All',
     bhk: 'All',
     bedroomType: 'All',
@@ -52,14 +49,14 @@ const Discover = () => {
       maxAge: 40,
       gender: 'All',
       occupationType: 'All',
-      maxBudget: 2200,
+      maxBudget: 35000,
       smoking: 'All',
       bhk: 'All',
       bedroomType: 'All',
     });
   };
 
-  // Compatibility Calculation Engine
+  // Compatibility Calculation Engine tailored for Indian cities & INR budgets
   const calculateCompatibility = (userProfile, candidate) => {
     if (!userProfile) return candidate.compatibilityScore || 90;
 
@@ -72,10 +69,10 @@ const Discover = () => {
       score += 20;
     }
 
-    // 2. Budget compatibility (+15)
-    const userMax = userProfile.maxBudget || 1400;
-    const candMax = candidate.locationBudget?.maxBudget || 1300;
-    if (Math.abs(userMax - candMax) <= 300) {
+    // 2. Budget compatibility (+15) with INR tolerance (within ₹5,000)
+    const userMax = userProfile.maxBudget || 22000;
+    const candMax = candidate.locationBudget?.maxBudget || 20000;
+    if (Math.abs(userMax - candMax) <= 5000) {
       score += 15;
     }
 
@@ -122,8 +119,8 @@ const Discover = () => {
           return false;
         }
 
-        // Budget filter
-        const candMaxBudget = u.locationBudget?.maxBudget || 1500;
+        // Budget filter (INR)
+        const candMaxBudget = u.locationBudget?.maxBudget || 22000;
         if (candMaxBudget > filters.maxBudget) return false;
 
         // Smoking filter
@@ -148,7 +145,6 @@ const Discover = () => {
       .sort((a, b) => b.compatibilityScore - a.compatibilityScore);
   }, [currentUser, passedProfileIds, likedProfiles, filters]);
 
-  // Handle Swipe Actions (gesture or button clicks)
   const handleSwipe = (direction, candidate) => {
     if (!candidate) return;
 
@@ -159,7 +155,6 @@ const Discover = () => {
     }
   };
 
-  // Keyboard navigation (Left Arrow = Pass, Right Arrow = Like)
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (eligibleCandidates.length === 0) return;
@@ -176,11 +171,10 @@ const Discover = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [eligibleCandidates, currentUser, likeProfile, passProfile]);
 
-  // Active filter count
   const activeFiltersCount = Object.entries(filters).filter(([key, val]) => {
     if (key === 'minAge' && val !== 18) return true;
     if (key === 'maxAge' && val !== 40) return true;
-    if (key === 'maxBudget' && val !== 2200) return true;
+    if (key === 'maxBudget' && val !== 35000) return true;
     if (typeof val === 'string' && val !== '' && val !== 'All') return true;
     return false;
   }).length;
@@ -197,7 +191,7 @@ const Discover = () => {
             Find Your Roomie
           </h1>
           <p className="text-sm text-[#656377] mt-1">
-            People you'll love sharing a home with.
+            People you'll love sharing a home with across India.
           </p>
         </div>
 
@@ -222,11 +216,9 @@ const Discover = () => {
       <div className="flex flex-col items-center justify-center pt-2 pb-8">
         {eligibleCandidates.length > 0 ? (
           <div className="w-full max-w-sm sm:max-w-md flex flex-col items-center space-y-6">
-            {/* Bumble-Style Card Deck Stack */}
             <div className="relative w-full h-[540px] sm:h-[580px]">
               {eligibleCandidates.slice(0, 3).map((candidate, idx) => {
                 const isTop = idx === 0;
-                // Underneath cards scaled down and offset for stacked appearance
                 const scale = 1 - idx * 0.04;
                 const translateY = idx * 10;
 
@@ -245,7 +237,6 @@ const Discover = () => {
 
             {/* Like and Pass Action Buttons */}
             <div className="flex items-center justify-center gap-6 pt-2">
-              {/* Pass Button */}
               <button
                 type="button"
                 onClick={() => handleSwipe('left', eligibleCandidates[0])}
@@ -255,7 +246,6 @@ const Discover = () => {
                 <X className="w-8 h-8 stroke-[2.5] group-hover:scale-110 transition-transform" />
               </button>
 
-              {/* Reset / Undo passed profiles */}
               <button
                 type="button"
                 onClick={resetPassedProfiles}
@@ -265,7 +255,6 @@ const Discover = () => {
                 <RotateCcw className="w-4 h-4 stroke-[2.2]" />
               </button>
 
-              {/* Like Button */}
               <button
                 type="button"
                 onClick={() => handleSwipe('right', eligibleCandidates[0])}
@@ -276,13 +265,11 @@ const Discover = () => {
               </button>
             </div>
 
-            {/* Quick Keyboard Hint */}
             <p className="text-[11px] text-[#656377] text-center hidden sm:block">
               Swipe with mouse or touch • Or press <kbd className="px-1.5 py-0.5 bg-slate-100 rounded border text-[10px]">←</kbd> to Pass, <kbd className="px-1.5 py-0.5 bg-slate-100 rounded border text-[10px]">→</kbd> to Like
             </p>
           </div>
         ) : (
-          /* Empty State when all profiles are swiped */
           <div className="max-w-md w-full bg-white rounded-3xl p-8 sm:p-10 border border-slate-200/80 shadow-xl text-center space-y-6">
             <div className="w-16 h-16 rounded-3xl bg-[#F0ECFF] text-[#7056D8] mx-auto flex items-center justify-center shadow-md">
               <Compass className="w-8 h-8 stroke-[2]" />
@@ -322,7 +309,6 @@ const Discover = () => {
         )}
       </div>
 
-      {/* Filter Sliding Drawer */}
       <FilterDrawer
         isOpen={isFilterOpen}
         onClose={() => setIsFilterOpen(false)}
@@ -332,7 +318,6 @@ const Discover = () => {
         totalResults={eligibleCandidates.length}
       />
 
-      {/* Mutual Match Popup Modal */}
       <MatchModal
         match={currentMatch}
         currentUser={currentUser}
