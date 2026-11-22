@@ -54,44 +54,45 @@ const Chat = () => {
 
   // Quick helper to simulate a match if user visits /chat before swiping on Discover
   const handleSimulateMatch = () => {
-    const candidate = initialUsers[0]; // Maya Lin
+    const candidate = initialUsers[0]; // Ananya Sharma
     likeProfile(candidate, currentUser);
   };
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
-      {/* Container Frame */}
-      <div className="bg-white rounded-3xl border border-slate-200/90 shadow-xl overflow-hidden h-[80vh] min-h-[580px] flex">
+      {/* Container Frame styled to match serene website aesthetic */}
+      <div className="bg-[#FAF6EE] rounded-[32px] border border-[#556852]/20 shadow-xl overflow-hidden h-[82vh] min-h-[600px] flex">
         {/* CONDITION 1: Friendly Empty State when User Has No Matches */}
         {conversations.length === 0 ? (
           <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center space-y-6 max-w-md mx-auto">
             <div className="relative">
-              <div className="w-20 h-20 rounded-3xl bg-[#F0ECFF] text-[#7056D8] flex items-center justify-center shadow-lg shadow-[#7056D8]/15">
-                <MessageSquare className="w-10 h-10 stroke-[2]" />
+              <div className="w-20 h-20 rounded-3xl bg-[#EBF1EA] text-[#556852] flex items-center justify-center shadow-md border border-[#556852]/20">
+                <MessageSquare className="w-10 h-10 stroke-[1.8]" />
               </div>
-              <span className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-[#FF8BA7] text-white flex items-center justify-center shadow-md">
-                <Heart className="w-4 h-4 fill-white" />
+              <span className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-[#F7E599] text-[#232B20] flex items-center justify-center shadow-md border border-[#556852]/20">
+                <Heart className="w-4 h-4 fill-[#232B20]" />
               </span>
             </div>
 
             <div className="space-y-2">
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-[#252333]">
-                No Matches Yet
+              <h2 className="font-serif text-3xl sm:text-4xl font-normal text-[#232B20]">
+                No Connections Yet
               </h2>
-              <p className="text-sm text-[#656377] leading-relaxed">
-                The chat system is accessible only to users who have mutually matched. Head over to Discover to swipe right on potential flatmates!
+              <p className="text-xs sm:text-sm text-[#616E5E] leading-relaxed">
+                The messaging sanctuary is accessible only to flatmates who have mutually matched.
+                Head over to Discover to explore compatible souls!
               </p>
             </div>
 
             <div className="w-full space-y-3 pt-2">
               <Link to="/discover" className="w-full block">
                 <Button
-                  variant="primary"
+                  variant="butter"
                   size="lg"
                   icon={Compass}
-                  className="w-full shadow-lg shadow-[#7056D8]/25 font-bold"
+                  className="w-full shadow-md text-xs uppercase tracking-[0.2em]"
                 >
-                  Start Swiping on Discover
+                  Start Discovering Flatmates
                 </Button>
               </Link>
 
@@ -99,20 +100,19 @@ const Chat = () => {
               <button
                 type="button"
                 onClick={handleSimulateMatch}
-                className="text-xs font-semibold text-[#7056D8] hover:underline flex items-center justify-center gap-1.5 w-full cursor-pointer py-1"
+                className="text-xs text-[#556852] hover:text-[#232B20] underline transition-colors cursor-pointer"
               >
-                <Sparkles className="w-3.5 h-3.5 text-[#FF8BA7]" />
-                Simulate a match with Maya Lin for instant testing
+                Instant Match with Demo Profile
               </button>
             </div>
           </div>
         ) : (
-          /* CONDITION 2: Active Chat Interface (WhatsApp Web / Bumble Style) */
+          /* CONDITION 2: Normal Chat Interface with Responsive Layout */
           <>
-            {/* Left Sidebar (Desktop: always visible, Mobile: visible when not viewing chat) */}
+            {/* Left Sidebar (hidden on mobile when viewing chat window) */}
             <div
-              className={`w-full md:w-[360px] lg:w-[400px] flex-shrink-0 h-full ${
-                mobileViewingChat ? 'hidden md:flex' : 'flex'
+              className={`w-full md:w-80 lg:w-96 flex-shrink-0 h-full ${
+                mobileViewingChat ? 'hidden md:block' : 'block'
               }`}
             >
               <ChatSidebar
@@ -123,36 +123,33 @@ const Chat = () => {
               />
             </div>
 
-            {/* Right Chat Window (Desktop: always visible, Mobile: visible when viewing chat) */}
+            {/* Right Chat Window (hidden on mobile when viewing sidebar) */}
             <div
-              className={`flex-1 h-full ${
-                !mobileViewingChat ? 'hidden md:flex' : 'flex'
+              className={`flex-1 h-full min-w-0 ${
+                !mobileViewingChat ? 'hidden md:block' : 'block'
               }`}
             >
               {activeConversation ? (
-                <div className="w-full h-full">
-                  <ChatWindow
-                    conversation={activeConversation}
-                    isTyping={isTyping}
-                    onSendMessage={sendMessage}
-                    onBack={() => setMobileViewingChat(false)}
-                    isMobileView={mobileViewingChat}
-                  />
-                </div>
+                <ChatWindow
+                  conversation={activeConversation}
+                  isTyping={isTyping}
+                  onSendMessage={sendMessage}
+                  onBack={() => setMobileViewingChat(false)}
+                  isMobileView={mobileViewingChat}
+                />
               ) : (
-                /* Empty state when no conversation is selected (desktop) */
-                <div className="w-full h-full flex flex-col items-center justify-center p-8 text-center space-y-4 bg-[#FAF9F6]/50">
-                  <div className="w-16 h-16 rounded-3xl bg-[#F0ECFF] text-[#7056D8] flex items-center justify-center shadow-md">
+                /* CONDITION 3: Empty State when no conversation is selected */
+                <div className="w-full h-full flex flex-col items-center justify-center p-8 text-center space-y-4 bg-[#F8F3EA]/60">
+                  <div className="w-16 h-16 rounded-full bg-[#EBF1EA] text-[#556852] flex items-center justify-center border border-[#556852]/20 shadow-sm">
                     <MessageSquare className="w-8 h-8" />
                   </div>
-                  <div className="space-y-1">
-                    <h3 className="text-xl font-extrabold text-[#252333]">
-                      Select a Conversation
-                    </h3>
-                    <p className="text-xs text-[#656377] max-w-xs">
-                      Choose a matched roomie from the sidebar to view your messages and chat.
-                    </p>
-                  </div>
+                  <h3 className="font-serif text-2xl font-normal text-[#232B20]">
+                    Select a Sanctuary Conversation
+                  </h3>
+                  <p className="text-xs sm:text-sm text-[#616E5E] max-w-sm leading-relaxed">
+                    Choose a matched flatmate from the sidebar to begin discussing move-in dates,
+                    habits, and coffee routines.
+                  </p>
                 </div>
               )}
             </div>

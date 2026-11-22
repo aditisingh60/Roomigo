@@ -16,7 +16,7 @@ export const ChatProvider = ({ children }) => {
   // Load conversations from localStorage or initialize with seed conversations
   const [conversations, setConversations] = useState(() => {
     try {
-      const saved = localStorage.getItem('roomigo_conversations');
+      const saved = localStorage.getItem('roomigo_conversations_v2');
       if (saved) return JSON.parse(saved);
     } catch (e) {
       console.error('Failed to parse conversations from localStorage', e);
@@ -34,7 +34,7 @@ export const ChatProvider = ({ children }) => {
   // Sync to localStorage
   useEffect(() => {
     try {
-      localStorage.setItem('roomigo_conversations', JSON.stringify(conversations));
+      localStorage.setItem('roomigo_conversations_v2', JSON.stringify(conversations));
     } catch (e) {
       console.error('Failed to save conversations to localStorage', e);
     }

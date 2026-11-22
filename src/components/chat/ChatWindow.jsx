@@ -35,15 +35,15 @@ const ChatWindow = ({
   }
 
   return (
-    <div className="h-full flex flex-col bg-[#FAF9F6]/50">
+    <div className="h-full flex flex-col bg-[#F8F3EA]/70">
       {/* Header */}
-      <div className="p-3.5 sm:p-4 bg-white border-b border-slate-200/80 flex items-center justify-between gap-3 shadow-sm z-10">
+      <div className="p-3.5 sm:p-4 bg-[#FAF6EE] border-b border-[#556852]/15 flex items-center justify-between gap-3 shadow-none z-10">
         <div className="flex items-center gap-3 min-w-0">
           {/* Mobile Back Button */}
           {isMobileView && (
             <button
               onClick={onBack}
-              className="p-1.5 rounded-full hover:bg-[#FAF9F6] text-[#252333] transition-colors cursor-pointer"
+              className="p-1.5 rounded-full hover:bg-[#EBF1EA] text-[#232B20] transition-colors cursor-pointer"
               aria-label="Back to messages"
             >
               <ArrowLeft className="w-5 h-5" />
@@ -51,40 +51,43 @@ const ChatWindow = ({
           )}
 
           {/* Participant Avatar */}
-          <div className="relative flex-shrink-0 cursor-pointer" onClick={() => setProfileModalOpen(true)}>
+          <div
+            className="relative flex-shrink-0 cursor-pointer group"
+            onClick={() => setProfileModalOpen(true)}
+          >
             <img
               src={
                 participant?.image ||
                 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80'
               }
               alt={participant?.name || 'Match'}
-              className="w-10 h-10 sm:w-11 sm:h-11 rounded-full object-cover border-2 border-white ring-2 ring-[#F0ECFF] shadow-sm"
+              className="w-10 h-10 sm:w-11 sm:h-11 rounded-full object-cover border border-[#556852]/20 shadow-sm group-hover:opacity-90 transition-opacity"
             />
-            <span className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 rounded-full border-2 border-white" />
+            <span className="absolute bottom-0 right-0 w-3 h-3 bg-[#556852] rounded-full border-2 border-[#FAF6EE]" />
           </div>
 
           {/* Participant Name & Location */}
           <div className="min-w-0">
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-2">
               <h3
                 onClick={() => setProfileModalOpen(true)}
-                className="font-extrabold text-[#252333] text-sm sm:text-base truncate hover:text-[#7056D8] cursor-pointer transition-colors"
+                className="font-serif text-lg sm:text-xl font-normal text-[#232B20] truncate hover:text-[#556852] cursor-pointer transition-colors"
               >
                 {participant?.name || 'Match'}
               </h3>
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#F0ECFF] text-[#7056D8] flex-shrink-0">
+              <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-[#EBF1EA] text-[#374435] border border-[#556852]/15 flex-shrink-0">
                 {participant?.age} yrs
               </span>
             </div>
 
-            <div className="flex items-center gap-2 text-xs text-[#656377] truncate">
-              <span className="text-emerald-600 font-semibold flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <div className="flex items-center gap-2 text-xs text-[#616E5E] truncate">
+              <span className="text-[#556852] font-semibold flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#556852] animate-pulse" />
                 Online
               </span>
               <span>•</span>
               <span className="truncate flex items-center gap-0.5">
-                <MapPin className="w-3 h-3 text-[#7056D8] flex-shrink-0" />
+                <MapPin className="w-3 h-3 text-[#556852] flex-shrink-0" />
                 {participant?.location || 'Bengaluru'}
               </span>
             </div>
@@ -96,7 +99,7 @@ const ChatWindow = ({
           <button
             type="button"
             onClick={() => setProfileModalOpen(true)}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#F0ECFF] hover:bg-[#e4ddfc] text-[#7056D8] text-xs font-bold transition-colors cursor-pointer shadow-sm"
+            className="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#EBF1EA] hover:bg-[#dce6d9] text-[#374435] border border-[#556852]/20 text-xs font-medium uppercase tracking-wider transition-colors cursor-pointer shadow-none"
           >
             <User className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">View Profile</span>
@@ -105,52 +108,42 @@ const ChatWindow = ({
       </div>
 
       {/* Message History Feed */}
-      <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-3">
-        {/* Match Verification Banner */}
-        <div className="text-center my-3">
-          <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#F0ECFF] border border-[#7056D8]/20 text-[#7056D8] text-[11px] font-bold shadow-sm">
-            <Sparkles className="w-3 h-3 text-[#FF8BA7]" /> You and {participant?.name} mutually matched on Roomigo
-          </span>
-        </div>
-
-        {/* Date Separator */}
-        <div className="flex items-center justify-center my-4">
-          <span className="text-[11px] font-bold text-[#656377] bg-white border border-slate-200/80 px-3 py-1 rounded-full shadow-sm">
+      <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4">
+        {/* Date Separator Pill */}
+        <div className="flex items-center justify-center my-3">
+          <span className="px-3 py-1 rounded-full bg-[#EBF1EA] text-[#374435] border border-[#556852]/15 text-[11px] font-serif uppercase tracking-wider shadow-none">
             Today
           </span>
         </div>
 
         {/* Message Bubbles */}
-        {messages.map((msg) => (
-          <MessageBubble
-            key={msg.id}
-            message={msg}
-            isMe={msg.isMe}
-            participant={participant}
-          />
-        ))}
+        {messages.map((message) => {
+          const isMe = message.senderId === 'current_user';
+          return (
+            <MessageBubble
+              key={message.id}
+              message={message}
+              isMe={isMe}
+              participant={participant}
+            />
+          );
+        })}
 
-        {/* Typing Indicator */}
+        {/* Typing indicator */}
         {isTyping && (
-          <div className="flex items-center gap-2 text-xs text-[#656377] animate-fadeIn pl-9">
-            <div className="bg-white px-3 py-1.5 rounded-full border border-slate-200 shadow-sm flex items-center gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#7056D8] animate-bounce" />
-              <span className="w-1.5 h-1.5 rounded-full bg-[#7056D8] animate-bounce [animation-delay:0.2s]" />
-              <span className="w-1.5 h-1.5 rounded-full bg-[#7056D8] animate-bounce [animation-delay:0.4s]" />
-              <span className="text-[11px] font-medium ml-1 text-[#252333]">
-                {participant?.name} is typing...
-              </span>
-            </div>
+          <div className="flex items-center gap-2 text-xs text-[#616E5E] italic py-1 animate-pulse">
+            <span className="w-2 h-2 rounded-full bg-[#556852] animate-bounce" />
+            <span>{participant?.name?.split(' ')[0]} is crafting a reply...</span>
           </div>
         )}
 
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Bottom Message Input */}
-      <MessageInput onSendMessage={(text) => onSendMessage(conversation.id, text)} />
+      {/* Bottom Message Input Bar */}
+      <MessageInput onSendMessage={onSendMessage} />
 
-      {/* Full Profile Modal */}
+      {/* Matched User Profile Detail Modal */}
       <ProfileModal
         profile={participant}
         isOpen={profileModalOpen}

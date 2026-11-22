@@ -1,12 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, Smile, Sparkles } from 'lucide-react';
 
-const COMMON_EMOJIS = ['👋', '😊', '✨', '🏠', '☕', '🎉', '👍', '❤️', '🛋️', '📍', '🔑', '🍕', '🪴', '🐶', '🐱', '🙌'];
+const COMMON_EMOJIS = ['👋', '😊', '✨', '🏠', '☕', '🎉', '👍', '❤️', '🛋️', '📍', '🔑', '🪴', '🙌', '🌿'];
 
 const QUICK_PROMPTS = [
-  'Hey! Are you free for a flat tour?',
+  'Hey! Are you free for a flat visit?',
   'What is your target move-in date?',
-  'Love your profile vibe! ✨',
+  'Love your profile vibe! 🌿',
+  'Do you prefer filter coffee or chai? ☕',
 ];
 
 const MessageInput = ({ onSendMessage, disabled = false }) => {
@@ -47,18 +48,18 @@ const MessageInput = ({ onSendMessage, disabled = false }) => {
   };
 
   return (
-    <div className="p-3 sm:p-4 bg-white border-t border-slate-200/80 relative">
+    <div className="p-3 sm:p-4 bg-[#FAF6EE] border-t border-[#556852]/15 relative">
       {/* Quick Prompts Bar */}
       <div className="flex items-center gap-1.5 overflow-x-auto pb-2 scrollbar-none">
-        <span className="text-[10px] font-bold text-[#7056D8] uppercase tracking-wider flex items-center gap-1 flex-shrink-0">
-          <Sparkles className="w-3 h-3 text-[#FF8BA7]" /> Quick:
+        <span className="text-[10px] font-bold text-[#556852] uppercase tracking-[0.2em] flex items-center gap-1 flex-shrink-0">
+          <Sparkles className="w-3 h-3 text-[#C59B27]" /> Quick:
         </span>
         {QUICK_PROMPTS.map((prompt, i) => (
           <button
             key={i}
             type="button"
             onClick={() => onSendMessage(prompt)}
-            className="text-xs bg-[#F0ECFF] hover:bg-[#e4ddfc] text-[#7056D8] px-2.5 py-1 rounded-full whitespace-nowrap transition-colors flex-shrink-0 cursor-pointer"
+            className="text-xs bg-[#EBF1EA] hover:bg-[#dce6d9] text-[#374435] border border-[#556852]/15 px-3 py-1 rounded-full whitespace-nowrap transition-colors flex-shrink-0 cursor-pointer"
           >
             {prompt}
           </button>
@@ -69,18 +70,18 @@ const MessageInput = ({ onSendMessage, disabled = false }) => {
       {showEmojiPicker && (
         <div
           ref={pickerRef}
-          className="absolute bottom-20 left-4 z-50 bg-white rounded-2xl border border-slate-200 shadow-2xl p-3 w-64 animate-scaleIn"
+          className="absolute bottom-20 left-4 z-50 bg-[#FAF6EE] rounded-2xl border border-[#556852]/20 shadow-2xl p-3 w-64 animate-scaleIn"
         >
-          <div className="text-xs font-bold text-[#656377] uppercase tracking-wider mb-2">
+          <div className="text-[11px] font-bold text-[#556852] uppercase tracking-wider mb-2">
             Reactions & Emojis
           </div>
-          <div className="grid grid-cols-6 gap-1.5 text-xl">
+          <div className="grid grid-cols-7 gap-1.5 text-lg">
             {COMMON_EMOJIS.map((emoji) => (
               <button
                 key={emoji}
                 type="button"
                 onClick={() => addEmoji(emoji)}
-                className="w-8 h-8 rounded-lg hover:bg-[#F0ECFF] flex items-center justify-center transition-colors cursor-pointer"
+                className="w-7 h-7 flex items-center justify-center hover:bg-[#EBF1EA] rounded-lg transition-colors cursor-pointer"
               >
                 {emoji}
               </button>
@@ -89,42 +90,40 @@ const MessageInput = ({ onSendMessage, disabled = false }) => {
         </div>
       )}
 
-      {/* Input Form */}
+      {/* Main Input Form */}
       <form onSubmit={handleSend} className="flex items-center gap-2">
-        {/* Emoji Trigger */}
+        {/* Emoji Button */}
         <button
           type="button"
           onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-          className={`p-2 rounded-full transition-colors cursor-pointer ${
-            showEmojiPicker
-              ? 'text-[#7056D8] bg-[#F0ECFF]'
-              : 'text-[#656377] hover:text-[#252333] hover:bg-[#FAF9F6]'
-          }`}
-          title="Add emoji"
+          className="p-2 rounded-full text-[#616E5E] hover:text-[#556852] hover:bg-[#EBF1EA] transition-colors cursor-pointer"
+          aria-label="Insert Emoji"
         >
           <Smile className="w-5 h-5" />
         </button>
 
-        {/* Message Input Field */}
-        <input
-          ref={inputRef}
-          type="text"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          onKeyDown={handleKeyDown}
-          placeholder="Type your message..."
-          disabled={disabled}
-          className="flex-1 px-4 py-2.5 bg-[#FAF9F6] border border-slate-200/90 rounded-full text-sm text-[#252333] focus:outline-none focus:ring-2 focus:ring-[#7056D8] focus:bg-white transition-all"
-        />
+        {/* Text Input */}
+        <div className="flex-1 relative">
+          <input
+            ref={inputRef}
+            type="text"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            onKeyDown={handleKeyDown}
+            disabled={disabled}
+            placeholder="Type your message..."
+            className="w-full px-5 py-2.5 bg-white border border-[#556852]/25 rounded-full text-xs sm:text-sm text-[#232B20] placeholder:text-[#616E5E]/60 focus:outline-none focus:ring-2 focus:ring-[#556852] focus:bg-white transition-all shadow-none"
+          />
+        </div>
 
         {/* Send Button */}
         <button
           type="submit"
           disabled={!text.trim() || disabled}
-          className="w-10 h-10 rounded-full bg-[#7056D8] hover:bg-[#5d44c8] disabled:opacity-40 disabled:cursor-not-allowed text-white flex items-center justify-center shadow-md shadow-[#7056D8]/25 transition-all cursor-pointer active:scale-95 flex-shrink-0"
-          title="Send message"
+          className="w-10 h-10 rounded-full bg-[#556852] hover:bg-[#435340] disabled:opacity-40 disabled:hover:bg-[#556852] text-[#FAF6EE] flex items-center justify-center transition-all cursor-pointer flex-shrink-0 shadow-sm active:scale-95"
+          aria-label="Send message"
         >
-          <Send className="w-4 h-4 -ml-0.5" />
+          <Send className="w-4 h-4 -translate-x-0.5" />
         </button>
       </form>
     </div>
@@ -132,4 +131,3 @@ const MessageInput = ({ onSendMessage, disabled = false }) => {
 };
 
 export default MessageInput;
-
