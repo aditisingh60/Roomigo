@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { initialUsers } from '../data/users';
 
 const MatchContext = createContext();
 
@@ -6,17 +7,18 @@ export const MatchProvider = ({ children }) => {
   const [likedProfiles, setLikedProfiles] = useState(() => {
     try {
       const saved = localStorage.getItem('roomigo_liked_profiles');
-      if (saved) return JSON.parse(saved);
+      if (saved !== null) return JSON.parse(saved);
     } catch (e) {
       console.error('Failed to load liked profiles from localStorage', e);
     }
-    return [];
+    // Seed default liked profiles on first launch
+    return initialUsers.slice(0, 3);
   });
 
   const [passedProfileIds, setPassedProfileIds] = useState(() => {
     try {
       const saved = localStorage.getItem('roomigo_passed_ids');
-      if (saved) return JSON.parse(saved);
+      if (saved !== null) return JSON.parse(saved);
     } catch (e) {
       console.error('Failed to load passed profile IDs from localStorage', e);
     }
@@ -26,11 +28,12 @@ export const MatchProvider = ({ children }) => {
   const [matches, setMatches] = useState(() => {
     try {
       const saved = localStorage.getItem('roomigo_matches');
-      if (saved) return JSON.parse(saved);
+      if (saved !== null) return JSON.parse(saved);
     } catch (e) {
       console.error('Failed to load matches from localStorage', e);
     }
-    return [];
+    // Seed default matches on first launch
+    return initialUsers.filter((u) => u.compatibilityScore >= 92).slice(0, 2);
   });
 
   // Modal state when a mutual match happens
@@ -70,6 +73,16 @@ export const MatchProvider = ({ children }) => {
     }
   };
 
+  const removeMatch = (profileId) => {
+    if (!profileId) return;
+    setMatches((prev) => prev.filter((m) => m.id !== profileId));
+  };
+
+  const removeLikedProfile = (profileId) => {
+    if (!profileId) return;
+    setLikedProfiles((prev) => prev.filter((p) => p.id !== profileId));
+  };
+
   const passProfile = (profileId) => {
     if (!profileId) return;
     setPassedProfileIds((prev) =>
@@ -94,6 +107,8 @@ export const MatchProvider = ({ children }) => {
         matches,
         currentMatch,
         likeProfile,
+        removeMatch,
+        removeLikedProfile,
         passProfile,
         resetPassedProfiles,
         clearCurrentMatch,
@@ -111,3 +126,5 @@ export const useMatch = () => {
   }
   return context;
 };
+
+export default MatchContext;

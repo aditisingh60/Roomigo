@@ -1,5 +1,11 @@
 import React from 'react';
-import { X, SlidersHorizontal, RotateCcw, Check } from 'lucide-react';
+import {
+  X,
+  SlidersHorizontal,
+  RotateCcw,
+  Check,
+  IndianRupee,
+} from 'lucide-react';
 import Button from '../common/Button';
 
 const FilterDrawer = ({
@@ -8,7 +14,6 @@ const FilterDrawer = ({
   filters,
   setFilters,
   onResetFilters,
-  totalResults,
 }) => {
   if (!isOpen) return null;
 
@@ -20,28 +25,23 @@ const FilterDrawer = ({
     <div className="fixed inset-0 z-50 overflow-hidden">
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-[#252333]/50 backdrop-blur-sm transition-opacity"
+        className="absolute inset-0 bg-[#242D21]/60 backdrop-blur-sm transition-opacity"
         onClick={onClose}
       />
 
       <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
-        <div className="w-screen max-w-md bg-white shadow-2xl flex flex-col justify-between overflow-hidden">
-          {/* Header */}
-          <div className="p-6 border-b border-slate-100 flex items-center justify-between">
-            <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-[#F0ECFF] text-[#7056D8] flex items-center justify-center">
-                <SlidersHorizontal className="w-5 h-5" />
-              </div>
-              <div>
-                <h2 className="text-lg font-extrabold text-[#252333]">Filters</h2>
-                <p className="text-xs text-[#656377]">
-                  Showing {totalResults} potential matches
-                </p>
-              </div>
+        <div className="w-screen max-w-md bg-[#FAF6EE] shadow-2xl flex flex-col justify-between border-l border-[#556852]/20">
+          {/* Drawer Header */}
+          <div className="p-6 border-b border-[#556852]/10 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <SlidersHorizontal className="w-5 h-5 text-[#556852]" />
+              <h2 className="font-serif text-2xl font-normal text-[#232B20]">
+                Filter Flatmates
+              </h2>
             </div>
             <button
               onClick={onClose}
-              className="p-2 rounded-xl text-[#656377] hover:text-[#252333] hover:bg-[#FAF9F6] transition-colors cursor-pointer"
+              className="p-1.5 rounded-full hover:bg-[#EBF1EA] text-[#616E5E] hover:text-[#232B20] transition-colors cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
@@ -51,7 +51,7 @@ const FilterDrawer = ({
           <div className="p-6 space-y-6 overflow-y-auto flex-1">
             {/* Location */}
             <div>
-              <label className="block text-xs font-bold text-[#252333] uppercase tracking-wider mb-2">
+              <label className="block text-xs font-bold text-[#556852] uppercase tracking-[0.2em] mb-2">
                 Location (City or Locality)
               </label>
               <input
@@ -59,17 +59,17 @@ const FilterDrawer = ({
                 value={filters.location}
                 onChange={(e) => update('location', e.target.value)}
                 placeholder="e.g. Koramangala, Indiranagar, Bandra, HSR"
-                className="w-full px-3.5 py-2.5 bg-[#FAF9F6] border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7056D8]"
+                className="w-full px-4 py-2.5 bg-white border border-[#556852]/25 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#556852] text-[#232B20]"
               />
             </div>
 
             {/* Max Budget Slider in INR */}
             <div>
               <div className="flex justify-between items-center mb-2">
-                <label className="block text-xs font-bold text-[#252333] uppercase tracking-wider">
+                <label className="block text-xs font-bold text-[#556852] uppercase tracking-[0.2em]">
                   Maximum Rent Budget
                 </label>
-                <span className="text-xs font-bold text-[#7056D8]">
+                <span className="text-xs font-bold text-[#232B20] bg-[#EBF1EA] px-2.5 py-0.5 rounded-full border border-[#556852]/20">
                   ₹{filters.maxBudget.toLocaleString('en-IN')} / mo
                 </span>
               </div>
@@ -80,9 +80,9 @@ const FilterDrawer = ({
                 step="1000"
                 value={filters.maxBudget}
                 onChange={(e) => update('maxBudget', Number(e.target.value))}
-                className="w-full accent-[#7056D8] cursor-pointer"
+                className="w-full accent-[#556852] cursor-pointer"
               />
-              <div className="flex justify-between text-[11px] text-[#656377] mt-1 font-medium">
+              <div className="flex justify-between text-[11px] text-[#616E5E] mt-1 font-medium">
                 <span>₹5,000</span>
                 <span>₹30,000</span>
                 <span>₹60,000+</span>
@@ -91,7 +91,7 @@ const FilterDrawer = ({
 
             {/* Gender */}
             <div>
-              <label className="block text-xs font-bold text-[#252333] uppercase tracking-wider mb-2">
+              <label className="block text-xs font-bold text-[#556852] uppercase tracking-[0.2em] mb-2">
                 Gender
               </label>
               <div className="grid grid-cols-4 gap-2 text-xs font-semibold">
@@ -102,8 +102,8 @@ const FilterDrawer = ({
                     onClick={() => update('gender', g)}
                     className={`py-2 px-1 rounded-xl border transition-all cursor-pointer ${
                       filters.gender === g
-                        ? 'bg-[#7056D8] text-white border-[#7056D8]'
-                        : 'bg-[#FAF9F6] text-[#252333] border-slate-200 hover:bg-[#F0ECFF]/60'
+                        ? 'bg-[#556852] text-[#FAF6EE] border-[#556852] shadow-sm'
+                        : 'bg-white text-[#232B20] border-[#556852]/20 hover:bg-[#EBF1EA]'
                     }`}
                   >
                     {g}
@@ -114,7 +114,7 @@ const FilterDrawer = ({
 
             {/* Student or Working */}
             <div>
-              <label className="block text-xs font-bold text-[#252333] uppercase tracking-wider mb-2">
+              <label className="block text-xs font-bold text-[#556852] uppercase tracking-[0.2em] mb-2">
                 Student or Working
               </label>
               <div className="grid grid-cols-3 gap-2 text-xs font-semibold">
@@ -129,8 +129,8 @@ const FilterDrawer = ({
                     onClick={() => update('occupationType', item.val)}
                     className={`py-2 px-1 rounded-xl border transition-all cursor-pointer ${
                       filters.occupationType === item.val
-                        ? 'bg-[#7056D8] text-white border-[#7056D8]'
-                        : 'bg-[#FAF9F6] text-[#252333] border-slate-200 hover:bg-[#F0ECFF]/60'
+                        ? 'bg-[#556852] text-[#FAF6EE] border-[#556852] shadow-sm'
+                        : 'bg-white text-[#232B20] border-[#556852]/20 hover:bg-[#EBF1EA]'
                     }`}
                   >
                     {item.label}
@@ -142,10 +142,10 @@ const FilterDrawer = ({
             {/* Age Range */}
             <div>
               <div className="flex justify-between items-center mb-2">
-                <label className="block text-xs font-bold text-[#252333] uppercase tracking-wider">
+                <label className="block text-xs font-bold text-[#556852] uppercase tracking-[0.2em]">
                   Age Range
                 </label>
-                <span className="text-xs font-bold text-[#7056D8]">
+                <span className="text-xs font-bold text-[#232B20] bg-[#EBF1EA] px-2.5 py-0.5 rounded-full border border-[#556852]/20">
                   {filters.minAge} – {filters.maxAge} yrs
                 </span>
               </div>
@@ -156,7 +156,7 @@ const FilterDrawer = ({
                   max={filters.maxAge}
                   value={filters.minAge}
                   onChange={(e) => update('minAge', Number(e.target.value))}
-                  className="px-3 py-2 bg-[#FAF9F6] border border-slate-200 rounded-xl text-xs focus:ring-1 focus:ring-[#7056D8]"
+                  className="px-3.5 py-2 bg-white border border-[#556852]/25 rounded-xl text-xs focus:ring-1 focus:ring-[#556852] text-[#232B20]"
                 />
                 <input
                   type="number"
@@ -164,14 +164,14 @@ const FilterDrawer = ({
                   max="60"
                   value={filters.maxAge}
                   onChange={(e) => update('maxAge', Number(e.target.value))}
-                  className="px-3 py-2 bg-[#FAF9F6] border border-slate-200 rounded-xl text-xs focus:ring-1 focus:ring-[#7056D8]"
+                  className="px-3.5 py-2 bg-white border border-[#556852]/25 rounded-xl text-xs focus:ring-1 focus:ring-[#556852] text-[#232B20]"
                 />
               </div>
             </div>
 
             {/* Smoking Preference */}
             <div>
-              <label className="block text-xs font-bold text-[#252333] uppercase tracking-wider mb-2">
+              <label className="block text-xs font-bold text-[#556852] uppercase tracking-[0.2em] mb-2">
                 Smoking Preference
               </label>
               <div className="grid grid-cols-3 gap-2 text-xs font-semibold">
@@ -182,8 +182,8 @@ const FilterDrawer = ({
                     onClick={() => update('smoking', s)}
                     className={`py-2 px-1 rounded-xl border transition-all cursor-pointer ${
                       filters.smoking === s
-                        ? 'bg-[#7056D8] text-white border-[#7056D8]'
-                        : 'bg-[#FAF9F6] text-[#252333] border-slate-200 hover:bg-[#F0ECFF]/60'
+                        ? 'bg-[#556852] text-[#FAF6EE] border-[#556852] shadow-sm'
+                        : 'bg-white text-[#232B20] border-[#556852]/20 hover:bg-[#EBF1EA]'
                     }`}
                   >
                     {s}
@@ -194,7 +194,7 @@ const FilterDrawer = ({
 
             {/* 1 BHK / 2 BHK / 3 BHK */}
             <div>
-              <label className="block text-xs font-bold text-[#252333] uppercase tracking-wider mb-2">
+              <label className="block text-xs font-bold text-[#556852] uppercase tracking-[0.2em] mb-2">
                 Apartment Layout
               </label>
               <div className="grid grid-cols-4 gap-2 text-xs font-semibold">
@@ -205,8 +205,8 @@ const FilterDrawer = ({
                     onClick={() => update('bhk', b)}
                     className={`py-2 px-1 rounded-xl border transition-all cursor-pointer ${
                       filters.bhk === b
-                        ? 'bg-[#7056D8] text-white border-[#7056D8]'
-                        : 'bg-[#FAF9F6] text-[#252333] border-slate-200 hover:bg-[#F0ECFF]/60'
+                        ? 'bg-[#556852] text-[#FAF6EE] border-[#556852] shadow-sm'
+                        : 'bg-white text-[#232B20] border-[#556852]/20 hover:bg-[#EBF1EA]'
                     }`}
                   >
                     {b}
@@ -217,7 +217,7 @@ const FilterDrawer = ({
 
             {/* Shared or Private Room */}
             <div>
-              <label className="block text-xs font-bold text-[#252333] uppercase tracking-wider mb-2">
+              <label className="block text-xs font-bold text-[#556852] uppercase tracking-[0.2em] mb-2">
                 Room Type
               </label>
               <div className="grid grid-cols-3 gap-2 text-xs font-semibold">
@@ -228,8 +228,8 @@ const FilterDrawer = ({
                     onClick={() => update('bedroomType', r)}
                     className={`py-2 px-1 rounded-xl border transition-all cursor-pointer ${
                       filters.bedroomType === r
-                        ? 'bg-[#7056D8] text-white border-[#7056D8]'
-                        : 'bg-[#FAF9F6] text-[#252333] border-slate-200 hover:bg-[#F0ECFF]/60'
+                        ? 'bg-[#556852] text-[#FAF6EE] border-[#556852] shadow-sm'
+                        : 'bg-white text-[#232B20] border-[#556852]/20 hover:bg-[#EBF1EA]'
                     }`}
                   >
                     {r.replace(' bedroom', '')}
@@ -240,16 +240,16 @@ const FilterDrawer = ({
           </div>
 
           {/* Footer Actions */}
-          <div className="p-6 border-t border-slate-100 bg-[#FAF9F6] flex items-center justify-between gap-3">
+          <div className="p-6 border-t border-[#556852]/10 bg-[#FAF6EE] flex items-center justify-between gap-3">
             <button
               type="button"
               onClick={onResetFilters}
-              className="text-xs font-bold text-[#656377] hover:text-[#252333] flex items-center gap-1.5 cursor-pointer"
+              className="text-xs font-semibold text-[#616E5E] hover:text-[#232B20] flex items-center gap-1.5 cursor-pointer uppercase tracking-wider"
             >
               <RotateCcw className="w-3.5 h-3.5" />
               Reset All
             </button>
-            <Button variant="primary" size="md" icon={Check} onClick={onClose}>
+            <Button variant="butter" size="md" icon={Check} onClick={onClose} className="text-xs uppercase tracking-wider font-semibold">
               Apply Filters
             </Button>
           </div>

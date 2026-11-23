@@ -210,6 +210,18 @@ export const ChatProvider = ({ children }) => {
     }, 2400);
   };
 
+  // Remove conversation when user unmatches
+  const removeConversation = (participantId) => {
+    setConversations((prev) =>
+      prev.filter(
+        (c) => c.participantId !== participantId && c.id !== `conv_${participantId}`
+      )
+    );
+    setActiveConversationId((prev) =>
+      prev === `conv_${participantId}` ? null : prev
+    );
+  };
+
   const activeConversation = conversations.find((c) => c.id === activeConversationId) || null;
 
   return (
@@ -222,6 +234,7 @@ export const ChatProvider = ({ children }) => {
         selectConversation,
         sendMessage,
         markAsRead,
+        removeConversation,
       }}
     >
       {children}

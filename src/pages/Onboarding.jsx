@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   User,
@@ -9,6 +9,7 @@ import {
   ArrowLeft,
   Check,
   Camera,
+  Upload,
   Briefcase,
   GraduationCap,
   Calendar,
@@ -31,6 +32,23 @@ const Onboarding = () => {
   const navigate = useNavigate();
 
   const [currentStep, setCurrentStep] = useState(1);
+  const fileInputRef = useRef(null);
+
+  const handleFileUpload = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (!file.type.startsWith('image/')) {
+      alert('Please select an image file (JPG, PNG, WebP).');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      if (event.target?.result) {
+        updateField('profilePic', event.target.result);
+      }
+    };
+    reader.readAsDataURL(file);
+  };
 
   const [formData, setFormData] = useState({
     profilePic: currentUser?.profile?.profilePic || AVATAR_PRESETS[0],
@@ -138,22 +156,47 @@ const Onboarding = () => {
               <label className="block text-xs font-bold text-[#252333] uppercase tracking-wider mb-2">
                 Profile Picture
               </label>
+
+              {/* Hidden file input */}
+              <input
+                type="file"
+                ref={fileInputRef}
+                onChange={handleFileUpload}
+                accept="image/*"
+                className="hidden"
+              />
+
               <div className="flex flex-col sm:flex-row items-center gap-5">
-                <div className="relative">
+                <div
+                  className="relative cursor-pointer group"
+                  onClick={() => fileInputRef.current?.click()}
+                  title="Upload your photo"
+                >
                   <img
                     src={formData.profilePic}
                     alt="Profile Preview"
-                    className="w-24 h-24 rounded-3xl object-cover border-2 border-white ring-4 ring-[#F0ECFF] shadow-md"
+                    className="w-24 h-24 rounded-3xl object-cover border-2 border-white ring-4 ring-[#EBF1EA] shadow-md group-hover:opacity-90 transition-opacity"
                   />
-                  <div className="absolute -bottom-1 -right-1 w-7 h-7 bg-[#7056D8] rounded-full flex items-center justify-center text-white shadow-sm">
+                  <div className="absolute -bottom-1 -right-1 w-8 h-8 bg-[#556852] hover:bg-[#435340] rounded-full flex items-center justify-center text-white shadow-sm border-2 border-white transition-transform hover:scale-105">
                     <Camera className="w-4 h-4" />
                   </div>
                 </div>
 
-                <div className="flex-1 w-full space-y-2">
-                  <p className="text-xs text-[#656377]">
-                    Choose an avatar or paste a custom photo URL:
-                  </p>
+                <div className="flex-1 w-full space-y-2.5">
+                  <div className="flex items-center justify-between gap-2">
+                    <p className="text-xs text-[#616E5E]">
+                      Upload your picture or pick an avatar:
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => fileInputRef.current?.click()}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#EBF1EA] hover:bg-[#dce6d9] text-[#374435] border border-[#556852]/20 text-xs font-semibold transition-colors cursor-pointer"
+                    >
+                      <Upload className="w-3.5 h-3.5" />
+                      <span>Upload from Device</span>
+                    </button>
+                  </div>
+
                   <div className="flex flex-wrap gap-2">
                     {AVATAR_PRESETS.map((picUrl, idx) => (
                       <button
@@ -162,7 +205,7 @@ const Onboarding = () => {
                         onClick={() => updateField('profilePic', picUrl)}
                         className={`w-9 h-9 rounded-xl overflow-hidden border-2 transition-all cursor-pointer ${
                           formData.profilePic === picUrl
-                            ? 'border-[#7056D8] ring-2 ring-[#7056D8]/30 scale-105'
+                            ? 'border-[#556852] ring-2 ring-[#556852]/30 scale-105'
                             : 'border-slate-200 opacity-70 hover:opacity-100'
                         }`}
                       >
@@ -174,8 +217,8 @@ const Onboarding = () => {
                     type="url"
                     value={formData.profilePic}
                     onChange={(e) => updateField('profilePic', e.target.value)}
-                    placeholder="https://example.com/your-photo.jpg"
-                    className="w-full px-3 py-1.5 text-xs bg-[#FAF9F6] border border-slate-200 rounded-lg text-[#252333] focus:outline-none focus:ring-1 focus:ring-[#7056D8]"
+                    placeholder="Or paste an image URL (https://...)"
+                    className="w-full px-3 py-1.5 text-xs bg-[#FAF9F6] border border-slate-200 rounded-lg text-[#252333] focus:outline-none focus:ring-1 focus:ring-[#556852]"
                   />
                 </div>
               </div>
